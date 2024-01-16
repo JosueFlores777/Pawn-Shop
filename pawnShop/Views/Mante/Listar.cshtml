@@ -1,0 +1,61 @@
+﻿@model List<UsersModel>
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List User</h1>
+
+<div class="card">
+    <div class="card-header">
+        List
+    </div>
+    <div class="card-body">
+        <form method="get" class="form-inline" action="@Url.Action("Listar", "Mante")">
+            <input type="text" name="search" class=" sr-only" placeholder="Enter last name or name" />
+            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Reset</button>
+        </form>
+        <br />
+        <br />
+        <a class="btn btn-success" asp-action="Save" asp-controller="Mante"> <i class="bg bi-plus-circle"></i> Create New</a>
+       
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Creation</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach(var items in Model)
+                {
+                    <tr>
+                   
+                        <td>@items.Id</td>
+                        <td>@items.Name</td>
+                        <td>@items.LastName</td>
+                        <td>@items.Email</td>
+                        <td>@items.Phone</td>
+                        <td>@items.Role</td>
+                        <td>@items.CreationDate</td>
+                        <td>@items.UpdateDate</td>
+                        <td> <a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Mante" asp-route-idUser="@items.Id">Edit</a></td>
+                        <td> <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Mante" asp-route-idUser="@items.Id">Delete</a></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
