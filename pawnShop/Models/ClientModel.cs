@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace pawnShop.Models
 {
-    public class UsersModel
+    public class ClientModel
     {   
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "IDClient is required")]
+        public string IDClient { get; set; }
 
         [Required(ErrorMessage = "LastName is required")]
         public string? LastName { get; set; }
@@ -29,5 +33,11 @@ namespace pawnShop.Models
 
         [Required(ErrorMessage = "UpdateDate is required")]
         public DateTime? UpdateDate { get; set; }
+
+        public int UpdatedByEmployeeId { get; set; }
+
+        public string EmployedCreate { get; set; }
+        public int CreateEmployedId { get; set; }
+        public int LoggedInUserId { get; set; }
     }
 }

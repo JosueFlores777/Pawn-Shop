@@ -6,11 +6,12 @@ namespace pawnShop.Data
 {
     public class UsersDto
     {
-        public List<UsersModel> List(string search) { 
+        public List<ClientModel> List(string search)
+        {
 
-            var oList = new List<UsersModel>();
-            var cn =new Conexion();
-          
+            var oList = new List<ClientModel>();
+            var cn = new Conexion();
+
             using (var conexion = new SqlConnection(cn.getConexion()))
             {
                 conexion.Open();
@@ -20,63 +21,71 @@ namespace pawnShop.Data
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    query = "SELECT * FROM users WHERE name = @search OR lastName = @search";
+                    query = "SELECT * FROM users WHERE name =@search' OR lastName = @search";
                     cmd = new SqlCommand(query, conexion);
-                    cmd.Parameters.AddWithValue("@search", search);
+                    cmd.Parameters.AddWithValue("@search", "%" + search + "%");
+
                     using (var dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-                            oList.Add(new UsersModel
+                            oList.Add(new ClientModel
                             {
                                 Id = Convert.ToInt32(dr["id"]),
                                 Name = dr["name"].ToString(),
                                 LastName = dr["lastName"].ToString(),
+                                IDClient = dr["IDClient"].ToString(),
                                 Email = dr["email"].ToString(),
                                 Password = dr["password"].ToString(),
                                 Phone = dr["phone"].ToString(),
                                 Role = dr["role"].ToString(),
                                 CreationDate = Convert.ToDateTime(dr["creation_date"]),
-                                UpdateDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"])
+                                UpdateDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"]),
+                                CreateEmployedId = Convert.ToInt32(dr["created_by_employee_id"]),
+                                UpdatedByEmployeeId = (dr["update_by_employee_id"] != DBNull.Value) ? Convert.ToInt32(dr["update_by_employee_id"]) : 0,
 
                             });
                         }
                     }
                 }
-                else {
-                    cmd = new SqlCommand("Select * from users", conexion);
+                else
+                {
+                    cmd = new SqlCommand("SELECT * from users", conexion);
                     cmd.CommandType = CommandType.Text;
 
                     using (var dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-                            oList.Add(new UsersModel
+                            oList.Add(new ClientModel
                             {
                                 Id = Convert.ToInt32(dr["id"]),
                                 Name = dr["name"].ToString(),
+                                IDClient = dr["IDClient"].ToString(),
                                 LastName = dr["lastName"].ToString(),
                                 Email = dr["email"].ToString(),
                                 Password = dr["password"].ToString(),
                                 Phone = dr["phone"].ToString(),
                                 Role = dr["role"].ToString(),
                                 CreationDate = Convert.ToDateTime(dr["creation_date"]),
-                                UpdateDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"])
+                                UpdateDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"]),
+                                CreateEmployedId = Convert.ToInt32(dr["created_by_employee_id"]),
+                                UpdatedByEmployeeId = (dr["update_by_employee_id"] != DBNull.Value) ? Convert.ToInt32(dr["update_by_employee_id"]) : 0,
 
                             });
                         }
                     }
                 }
-                 
+
                 conexion.Close();
             }
 
-            return oList; 
+            return oList;
         }
 
-        public UsersModel Get(int id)
+        public ClientModel Get(int id)
         {
-            var oUser = new UsersModel();
+            var oUser = new ClientModel();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getConexion()))
@@ -93,6 +102,7 @@ namespace pawnShop.Data
                     {
                         oUser.Id = Convert.ToInt32(dr["id"]);
                         oUser.Name = dr["name"].ToString();
+                        oUser.IDClient = dr["IDClient"].ToString();
                         oUser.LastName = dr["lastName"].ToString();
                         oUser.Email = dr["email"].ToString();
                         oUser.Password = dr["password"].ToString();
@@ -100,17 +110,24 @@ namespace pawnShop.Data
                         oUser.Role = dr["role"].ToString();
                         oUser.CreationDate = Convert.ToDateTime(dr["creation_date"]);
                         oUser.UpdateDate = dr["modification_date"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(dr["modification_date"]);
+                        oUser.CreateEmployedId = Convert.ToInt32(dr["created_by_employee_id"]);
+                        oUser.UpdatedByEmployeeId = (dr["update_by_employee_id"] != DBNull.Value) ? Convert.ToInt32(dr["update_by_employee_id"]) : 0;
                     }
+
+                    conexion.Close();
                 }
 
-                conexion.Close();
+                return oUser;
             }
 
-            return oUser;
+
         }
 
-        public bool Save(UsersModel oUser)
+
+        public bool Save(ClientModel oUser)
         {
+
+            int idE = 1;
             bool resp;
             try
             {
@@ -120,7 +137,8 @@ namespace pawnShop.Data
                 {
                     conexion.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users (name,lastName , email, password, phone ,role, creation_date) VALUES (@Name, @lastName, @Email, @Password,  @phone ,@Role, @CreationDate)", conexion);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (IDClient,name,lastName , email, password, phone ,role, creation_date,created_by_employee_id) VALUES (@IDClient,@Name, @lastName, @Email, @Password,  @phone ,@Role, @CreationDate,@created_by_employee_id)", conexion);
+                    cmd.Parameters.AddWithValue("@IDClient", oUser.IDClient);
                     cmd.Parameters.AddWithValue("@Name", oUser.Name);
                     cmd.Parameters.AddWithValue("@lastName", oUser.LastName);
                     cmd.Parameters.AddWithValue("@Email", oUser.Email);
@@ -128,7 +146,7 @@ namespace pawnShop.Data
                     cmd.Parameters.AddWithValue("@phone", oUser.Phone);
                     cmd.Parameters.AddWithValue("@Role", oUser.Role);
                     cmd.Parameters.AddWithValue("@CreationDate", oUser.CreationDate);
-
+                    cmd.Parameters.AddWithValue("created_by_employee_id", oUser.CreateEmployedId);
                     cmd.CommandType = CommandType.Text;
 
                     int rowsAffected = cmd.ExecuteNonQuery();
@@ -146,7 +164,7 @@ namespace pawnShop.Data
             return resp;
         }
 
-        public bool Edit(UsersModel oUser)
+        public bool Edit(ClientModel oUser)
         {
             bool resp;
             try
@@ -157,16 +175,18 @@ namespace pawnShop.Data
                 {
                     conexion.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE users SET name = @Name, lastName = @LastName, email = @Email, password = @Password, phone = @Phone, role = @Role, modification_date = @ModificationDate WHERE id = @UserId", conexion);
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET IDClient = @IDClient, name = @Name, lastName = @LastName, email = @Email, password = @Password, phone = @Phone, role = @Role, modification_date = @ModificationDate, update_by_employee_id=@update_by_employee_id WHERE id = @UserId", conexion);
 
-                    cmd.Parameters.AddWithValue("@UserId", oUser.Id); 
-                    cmd.Parameters.AddWithValue("@Name", oUser.Name);
+                    cmd.Parameters.AddWithValue("@UserId", oUser.Id);
+                    cmd.Parameters.Add("@IDClient", SqlDbType.Int).Value = oUser.IDClient;
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = oUser.Name;  
                     cmd.Parameters.AddWithValue("@lastName", oUser.LastName);
                     cmd.Parameters.AddWithValue("@Email", oUser.Email);
                     cmd.Parameters.AddWithValue("@Password", oUser.Password);
                     cmd.Parameters.AddWithValue("@phone", oUser.Phone);
                     cmd.Parameters.AddWithValue("@Role", oUser.Role);
                     cmd.Parameters.AddWithValue("@ModificationDate", oUser.UpdateDate);
+                    cmd.Parameters.AddWithValue("@update_by_employee_id", oUser.UpdatedByEmployeeId);
 
                     cmd.CommandType = CommandType.Text;
 

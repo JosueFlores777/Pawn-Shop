@@ -537,3 +537,12 @@ E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\ref
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\obj\Debug\net8.0\pawnShop.MvcApplicationPartsAssemblyInfo.cs
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\obj\Debug\net8.0\pawnShop.sourcelink.json
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Dapper.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.Mvc.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.Razor.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.Helpers.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.WebPages.Deployment.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.WebPages.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll

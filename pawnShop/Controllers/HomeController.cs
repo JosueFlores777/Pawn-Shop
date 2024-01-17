@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using pawnShop.Models;
+using pawnShop.Validated;
 using System.Diagnostics;
 
 namespace pawnShop.Controllers
 {
+    [ValidarSesion]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,7 +17,11 @@ namespace pawnShop.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new UserModel
+            {
+                Name = HttpContext.Session.GetString("userName")
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

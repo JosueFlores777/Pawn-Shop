@@ -1,5 +1,4 @@
-﻿@model UsersModel
-
+﻿@model ClientModel
 @{
     ViewData["Title"] = "Save";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +11,21 @@
         Save
     </div>
     <div class="card-body">
-        <form asp-action="Save" asp-controller="Mante" method="post" onsubmit="validateForm()">
+       
+        <form asp-action="Save" asp-controller="Mante" method="post">
+
+            <div class="form-group">
+                <label for="LoggedInEmployeeId">Logged In Employee ID</label>
+                <input type="text" id="LoggedInEmployeeId" class="form-control" asp-for="CreateEmployedId" readonly value="@Model?.LoggedInUserId" />
+                
+            </div>
+
+        
+            <div class="form-group">
+                <label for="InputId">DEI Cliente</label>
+                <input type="text" class="form-control" id="InputId" aria-describedby="InputId" asp-for="IDClient">
+
+            </div>
             <div class="form-group">
                 <label for="InputName">Name</label>
                 <input type="text" class="form-control" id="InputName" aria-describedby="nameHelp" placeholder="Enter name" asp-for="Name">

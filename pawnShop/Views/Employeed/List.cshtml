@@ -1,0 +1,65 @@
+﻿@model List<EmployeeModel>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List</h1>
+
+
+<div class="card">
+    <div class="card-header">
+        List Employeed
+    </div>
+
+    <div class="card-body">
+        <form class="form-check-inline" method="get" action="@Url.Action("List","Employeed")">
+            <input type="text" name="search" class="sr-only" placeholder="Enter name or lastname"/>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-secondary">Back</button>
+        </form>
+
+        <br />
+        <br />
+
+        <a class="btn btn-success" asp-action="Save" asp-controller="Employeed"> <i class="bg bi-plus-circle"></i> Create New</a>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Hiring Date</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Modification Date</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var items in Model)
+                {
+                   <tr>
+                       <td>@items.Id</td>
+                       <td>@items.IDUser</td>
+                        <td>@items.Name</td>
+                        <td>@items.LastName</td>
+                        <td>@items.Phone</td>
+                        <td>@items.Email</td>
+                        <td>@items.Role</td>
+                        <td>@items.HirringDate</td>
+                        <td>@items.CreationDate</td>
+                        <td>@items.LastUpdatedDate</td>
+                        <td><a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Employeed" asp-route.IdEmployeed="@items.Id"></a>Edit</td>
+                        <td><a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Employeed" asp-route.IdEmployeed="@items.Id"></a>Delete</td>
+                   </tr>  
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

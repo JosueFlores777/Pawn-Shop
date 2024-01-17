@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Pa2ebqczASbYs+LrLtJmkjj17oJ76I2aVLzkUMAIMoI=",
+  "Hash": "TmnqhlLjOK3MyiwDv4vwpNsOSH+viLiKrv1XJM97kKE=",
   "Source": "pawnShop",
   "BasePath": "_content/pawnShop",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "E:\\Descargar\\RAMDOS\\ProyectCichar\\Proyect\\pawnShop\\pawnShop\\wwwroot\\css\\style.css",
+      "SourceId": "pawnShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Descargar\\RAMDOS\\ProyectCichar\\Proyect\\pawnShop\\pawnShop\\wwwroot\\",
+      "BasePath": "_content/pawnShop",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
       "Identity": "E:\\Descargar\\RAMDOS\\ProyectCichar\\Proyect\\pawnShop\\pawnShop\\wwwroot\\favicon.ico",

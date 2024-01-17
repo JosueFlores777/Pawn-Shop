@@ -3,7 +3,7 @@
     public class TransactionsModel
     {
         public int Id { get; set; }
-        public UsersModel Users { get; set; }
+        public ClientModel Users { get; set; }
         public TransactionTypeModel TransactionType { get; set; }
         public ShelvesModel Shelves { get; set; }
         public double Amount { get; set; }

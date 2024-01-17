@@ -1,0 +1,91 @@
+﻿@model EmployeeModel
+@{
+    ViewData["Title"] = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Save</h1>
+
+<div class="card">
+    <div class="card-header">
+        Save
+    </div>
+    <div class="card-body">
+        <form asp-action="Save" asp-controller="Employeed" method="post">
+            <div class="form-group">
+                <label for="InputId">DEI Cliente</label>
+                <input type="text" class="form-control" id="validationServer03" placeholder="1 568da756" aria-describedby="InputId" asp-for="IDUser">
+
+            </div>
+            <div class="form-group">
+                <label for="InputName">Name</label>
+                <input type="text" class="form-control" id="InputName" aria-describedby="nameHelp" placeholder="Enter name" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="InputLast">Last Name</label>
+                <input type="text" class="form-control" id="InputLastName" aria-describedby="LastHelp" placeholder="Enter Last Name" asp-for="LastName">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="InputEmail1">Email</label>
+                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email" asp-for="Email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" asp-for="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" placeholder="+1 123-4868-4868" asp-for="Phone">
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Role: </label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="Role" asp-for="Role">
+                        <option selected>Choose...</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Administrator">Administrator</option>
+                    </select>
+                </div>
+            </div>
+         
+            <br />
+
+            <div class="form-group">
+                <label for="CreationDate">Creation date</label>
+                <input type="text" class="form-control" id="CreationDate" placeholder="MM/dd/yy" readonly asp-for="CreationDate">
+            </div>
+
+            <div class="form-group">
+                <label for="HiringDate">Hiring Date</label>
+                <input type="text" class="form-control" id="HiringDate" placeholder="MM/dd/yy" readonly asp-for="HirringDate">
+            </div>
+            <br />
+            <br />
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button class="btn btn-primary" asp-action="list" asp-controller="Employeed">Back</button>
+        </form>
+
+    </div>
+</div>
+<script>
+
+    var currentDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+
+    document.getElementById('CreationDate').value = currentDate;
+
+    document.getElementById('HiringDate').value = currentDate;
+    $('#inlineFormCustomSelect').on('change', function () {
+        var selectedRole = $(this).val();
+        $('#Role').val(selectedRole);
+    });
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
