@@ -42,7 +42,7 @@ namespace pawnShop.Controllers
 
         public ActionResult Logout()
         {
-            Console.WriteLine("Logout method called");
+   
             HttpContext.Session.Clear(); 
             HttpContext.Session.CommitAsync();
 

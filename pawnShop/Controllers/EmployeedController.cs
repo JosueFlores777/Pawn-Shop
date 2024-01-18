@@ -10,7 +10,7 @@ namespace pawnShop.Controllers
     {
         EmployeedDto employeeDto = new EmployeedDto();
 
-    
+
         public IActionResult List(string search)
         {
             var olist = employeeDto.List(search);
@@ -18,8 +18,8 @@ namespace pawnShop.Controllers
             return View(olist);
         }
 
-      
-        public IActionResult Save() { 
+        public IActionResult Save()
+        {
             return View();
         }
 
@@ -27,10 +27,10 @@ namespace pawnShop.Controllers
         public IActionResult Save(EmployeeModel employeeModel)
         {
             var response = employeeDto.Save(employeeModel);
-            if (!ModelState.IsValid) { 
+            if (!ModelState.IsValid)
+            {
                 View();
             }
-
 
             if (response)
                 return RedirectToAction("List");
@@ -39,60 +39,25 @@ namespace pawnShop.Controllers
 
         }
 
-<<<<<<< HEAD
-        
-        public IActionResult Edit(int id) {
+
+        public IActionResult Edit(int id)
+        {
             var employec = employeeDto.Get(id);
             return View(employec);
         }
 
 
         [HttpPost]
-        public IActionResult Edit(EmployeeModel employeeModel) {
-            var reponse= employeeDto.Edit(employeeModel);
+        public IActionResult Edit(EmployeeModel employeeModel)
+        {
+            var reponse = employeeDto.Edit(employeeModel);
             if (!ModelState.IsValid)
                 return View();
-            
-            if(reponse)
+
+            if (reponse)
                 return RedirectToAction("List");
             else
                 return View();
         }
-=======
-
-               public IActionResult Save(EmployeeModel employeeModel)
-       {
-           var response = employeeDto.Save(employeeModel);
-           if (!ModelState.IsValid) { 
-               View();
-           }
-
-
-           if (response)
-               return RedirectToAction("List");
-           else
-               return View();
-
-       }
-
-       
-       public IActionResult Edit(int id) {
-           var employec = employeeDto.Get(id);
-           return View(employec);
-       }
-
-
-       [HttpPost]
-       public IActionResult Edit(EmployeeModel employeeModel) {
-           var reponse= employeeDto.Edit(employeeModel);
-           if (!ModelState.IsValid)
-               return View();
-           
-           if(reponse)
-               return RedirectToAction("List");
-           else
-               return View();
-       }
->>>>>>> 2b1260a490972318f4485db0ef4f7ef72892ae80
     }
 }
