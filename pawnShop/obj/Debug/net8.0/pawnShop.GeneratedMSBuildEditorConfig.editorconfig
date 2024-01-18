@@ -30,6 +30,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Employeed/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVkXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Employeed/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVkXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -72,6 +76,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Warehouses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Warehouses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Warehouses/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/Warehouses/Save.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FyZWhvdXNlc1xTYXZlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Descargar/RAMDOS/ProyectCichar/Proyect/pawnShop/pawnShop/Views/_ViewImports.cshtml]

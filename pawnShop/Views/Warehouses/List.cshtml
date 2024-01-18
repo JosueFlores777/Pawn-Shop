@@ -1,0 +1,57 @@
+﻿@model List<WarehousesModel>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>List</h1>
+
+
+<div class="card">
+    <div class="card-header">
+        List Ware House
+    </div>
+
+    <div class="card-body">
+        <form class="form-check-inline" method="get" action="@Url.Action("List","Warehouses")">
+            <input type="text" name="search" class="sr-only" placeholder="Enter name or lastname"/>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-secondary">Reset</button>
+        </form>
+
+        <br />
+        <br />
+
+        <a class="btn btn-success" asp-action="Save" asp-controller="Warehouses"> <i class="bg bi-plus-circle"></i> Create New</a>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">creation</th>
+                    <th scope="col">creation</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">updatedDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var items in Model)
+                {
+                   <tr>
+                       <td>@items.Id</td>
+                       <td>@items.Name</td>
+                        <td>@items.Location</td>
+                        <td>@items.creation</td>
+                        <td>@items.updatedDate</td>
+   
+                        <td> <a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Warehouses" asp-route-id="@items.Id">Edit</a></td>
+                        <td> <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Warehouses" asp-route-id="@items.Id">Delete</a></td>
+                    </tr> 
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

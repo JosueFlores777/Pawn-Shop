@@ -59,5 +59,21 @@ namespace pawnShop.Controllers
             else
                 return View();
         }
+
+
+        public IActionResult Delete(int id)
+        {
+            var response = employeeDto.Get(id);
+            return View(response);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(EmployeeModel model) {
+            var response = employeeDto.Delete(model.Id);
+            if(response)
+                return RedirectToAction("List");
+            else
+                return View( );
+        }
     }
 }

@@ -169,13 +169,13 @@ namespace pawnShop.Data
 
                     SqlCommand cmd = new SqlCommand("UPDATE employees SET name = @name, phone = @phone, lastName = @lastName, userID = @userID, email = @email, password = @password, role = @role,modification_date=@modification_date WHERE id = @id", conexion);
 
-                    cmd.Parameters.AddWithValue("@id", employeeModel.Id); // Corrected parameter name
+                    cmd.Parameters.AddWithValue("@id", employeeModel.Id); 
                     cmd.Parameters.AddWithValue("@name", employeeModel.Name);
                     cmd.Parameters.AddWithValue("@phone", employeeModel.Phone);
                     cmd.Parameters.AddWithValue("@lastName", employeeModel.LastName);
                     cmd.Parameters.AddWithValue("@userID", employeeModel.IDUser);
                     cmd.Parameters.AddWithValue("@email", employeeModel.Email);
-                    cmd.Parameters.AddWithValue("@password", employeeModel.Password); // Corrected parameter name
+                    cmd.Parameters.AddWithValue("@password", employeeModel.Password);
                     cmd.Parameters.AddWithValue("@role", employeeModel.Role);
                     cmd.Parameters.AddWithValue("@modification_date", employeeModel.LastUpdatedDate);
 

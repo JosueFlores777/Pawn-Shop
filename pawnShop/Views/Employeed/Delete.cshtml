@@ -1,20 +1,21 @@
-﻿@model ClientModel
+﻿@model EmployeeModel
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Delete Employeed</h1>
+
 
 <div class="card">
     <div class="card-header">
-        Delete
+        Delete Employeed: @Model.Name @Model.LastName
     </div>
     <div class="card-body">
-        <form asp-action="Delete" asp-controller="Mante" method="post">
+        <form asp-action="Delete" asp-controller="Employeed" method="post">
             <div class="form-group">
-                <label for="InputId">ID User</label>
-                <input type="text" class="form-control" id="InputId" readonly aria-describedby="InputId" asp-for="Id">
+                <label for="InputId">DNI Employeed</label>
+                <input type="text" class="form-control"  readonly placeholder="1 568da756" aria-describedby="InputId" asp-for="IDUser">
 
             </div>
             <div class="form-group">
@@ -42,27 +43,32 @@
                 <input type="text" class="form-control" id="phone" readonly placeholder="+1 123-4868-4868" asp-for="Phone">
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
+            <br />
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Role: </label>
+                    <input type="text" class="form-control" id="phone" readonly placeholder="+1 123-4868-4868" name="Role" asp-for="Role">
+           
+                </div>
+            </div>
+
+            <br />
             <div class="form-group">
-                <label for="Role">Role</label>
-                <input type="text" class="form-control" id="Role" readonly placeholder="Role" value="Customer" readonly asp-for="Role">
-                <span asp-validation-for="Role" class="text-danger"></span>
+                <label for="LastUpdatedDate">Creation date</label>
+                <input type="text" class="form-control" id="LastUpdatedDate" placeholder="MM/dd/yy" readonly asp-for="CreationDate">
             </div>
             <div class="form-group">
-                <label for="Update">Update date</label>
-                <input type="text" class="form-control" id="Date" readonly placeholder="MM/dd/yy" readonly asp-for="CreationDate">
-            </div>
-            <div class="form-group">
-                <label for="Update">Update date</label>
-                <input type="text" class="form-control" id="Date" readonly placeholder="MM/dd/yy" readonly asp-for="UpdateDate">
+                <label for="LastUpdatedDate">Update date</label>
+                <input type="text" class="form-control" id="LastUpdatedDate" placeholder="MM/dd/yy" readonly asp-for="LastUpdatedDate">
             </div>
             <br />
             <br />
             <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>
-            <button class="btn btn-primary" asp-action="Listar" asp-controller="Mante">Back</button>
+            <button class="btn btn-primary" asp-action="list" asp-controller="Employeed">Back</button>
         </form>
+
     </div>
 </div>
-
 
 <!-- SweetAlert script -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -85,7 +91,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: "Deleted!",
+                        title: "Deleted!", 
                         text: "Your file has been deleted.",
                         icon: "success",
                         timer: 10000
