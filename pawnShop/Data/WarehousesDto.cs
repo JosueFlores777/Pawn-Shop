@@ -6,8 +6,8 @@ namespace pawnShop.Data
 {
     public class WarehousesDto
     {
-        public List<WarehousesModel> List(string search) {
-
+        public List<WarehousesModel> List(string search)
+        {
             var olist = new List<WarehousesModel>();
             var cn = new Conexion();
 
@@ -16,52 +16,87 @@ namespace pawnShop.Data
                 conexion.Open();
 
                 string query;
-                SqlCommand cmd;
 
-                if (!string.IsNullOrEmpty(search)) {
-                    query = "SELECT * FROM warehouses  WHERE name = @search OR location = @search";
-                    cmd = new SqlCommand(query,conexion);
-                    cmd.Parameters.AddWithValue("@search", search);
+                if (!string.IsNullOrEmpty(search))
+                {
+                    query = @"
+                SELECT a.id AS WarehouseId, a.name AS WarehouseName, a.location AS WarehouseLocation, 
+                       b.id AS ShelfId, b.name AS ShelfName, b.capacity AS ShelfCapacity,
+                       a.creation_date AS WarehouseCreation, a.modification_date AS WarehouseModification,
+                       b.creation_date AS ShelfCreation, b.modification_date AS ShelfModification
+                FROM warehouses a
+                INNER JOIN shelves b ON a.id = b.warehouse_id 
+                WHERE a.name = @search OR b.name = @search;
+            ";
 
-                    using (var dr = cmd.ExecuteReader()) { 
-                        while (dr.Read())
-                        {
-                            olist.Add(new WarehousesModel{ 
-                                Id = Convert.ToInt32(dr["id"]),
-                                Name = dr["name"].ToString(),
-                                Location = dr["location"].ToString(),
-                                creation = Convert.ToDateTime(dr["creation_date"]),
-                                updatedDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"])
-                           
-                            });
-                        }
-                    }
-
-                }
-                else {
-                    query = "Select * from warehouses ";
-                    cmd = new SqlCommand(query, conexion);
-
-                    using(var dr = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
-                        while (dr.Read()) {
+                        cmd.Parameters.AddWithValue("@search", search);
 
-                            olist.Add(new WarehousesModel { 
-                            Id = Convert.ToInt32(dr["id"]),
-                            Name = dr["name"].ToString(),
-                            Location = dr["location"].ToString(),
-                            creation = Convert.ToDateTime(dr["cretion_date"]),
-                            updatedDate = dr["modification_date"] == DBNull.Value? (DateTime?)null : Convert.ToDateTime(dr["modification_date"])
-                            
-                            });
-                        
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                olist.Add(new WarehousesModel
+                                {
+                                    // Populate Warehouse properties
+                                    Id = Convert.ToInt32(dr["WarehouseId"]),
+                                    Name = dr["WarehouseName"].ToString(),
+                                    Location = dr["WarehouseLocation"].ToString(),
+                                    creation = Convert.ToDateTime(dr["WarehouseCreation"]),
+                                    updatedDate = dr["WarehouseModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["WarehouseModification"]),
+
+                                   
+                                    Shelves = new ShelvesModel
+                                    {
+                                        Id = Convert.ToInt32(dr["ShelfId"]),
+                                        Name = dr["ShelfName"].ToString(),
+                                        Capacity = dr["ShelfCapacity"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["ShelfCapacity"]),
+                                        Created = Convert.ToDateTime(dr["ShelfCreation"]),
+                                        Updated = dr["ShelfModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ShelfModification"]),
+                                    }
+                                });
+                            }
                         }
-
                     }
-
                 }
+                else
+                {
+                    query = @"
+                SELECT a.id AS WarehouseId, a.name AS WarehouseName, a.location AS WarehouseLocation, 
+                       b.id AS ShelfId, b.name AS ShelfName, b.capacity AS ShelfCapacity,
+                       a.creation_date AS WarehouseCreation, a.modification_date AS WarehouseModification,
+                       b.creation_date AS ShelfCreation, b.modification_date AS ShelfModification
+                FROM warehouses a
+                INNER JOIN shelves b ON a.id = b.warehouse_id;
+            ";
 
-
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    {
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                olist.Add(new WarehousesModel
+                                {
+                                    Id = Convert.ToInt32(dr["WarehouseId"]),
+                                    Name = dr["WarehouseName"].ToString(),
+                                    Location = dr["WarehouseLocation"].ToString(),
+                                    creation = Convert.ToDateTime(dr["WarehouseCreation"]),
+                                    updatedDate = dr["WarehouseModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["WarehouseModification"]),
+                                    Shelves = new ShelvesModel
+                                    {
+                                        Id = Convert.ToInt32(dr["ShelfId"]),
+                                        Name = dr["ShelfName"].ToString(),
+                                        Capacity = dr["ShelfCapacity"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["ShelfCapacity"]),
+                                        Created = Convert.ToDateTime(dr["ShelfCreation"]),
+                                        Updated = dr["ShelfModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ShelfModification"]),
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
             }
 
             return olist;
@@ -109,7 +144,7 @@ namespace pawnShop.Data
                 {
                     conexion.Open();
 
-                    SqlCommand cmd = new SqlCommand("inset into warehouses (name , location, creation_date) value(@name,@location,@creation_date)", conexion);
+                    SqlCommand cmd = new SqlCommand("insert into warehouses (name , location, creation_date) values(@name,@location,@creation_date)", conexion);
                     cmd.Parameters.AddWithValue("@name", warehousesModel.Name);
                     cmd.Parameters.AddWithValue("@location", warehousesModel.Location);
                     cmd.Parameters.AddWithValue("@creation_date", warehousesModel.creation);
@@ -188,5 +223,41 @@ namespace pawnShop.Data
 
             return resp;
         }
+
+        public bool SaveShavle(ShelvesModel warehousesModel)
+        {
+
+            bool rep;
+            try
+            {
+                var cn = new Conexion();
+
+                using (var conexion = new SqlConnection(cn.getConexion()))
+                {
+                    conexion.Open();
+
+                    SqlCommand cmd = new SqlCommand("insert into shelves (name,warehouse_id, capacity, creation_date) values(@name,@warehouse_id,@capacity,@creation_date )", conexion);
+                    cmd.Parameters.AddWithValue("@name", warehousesModel.Name);
+                    cmd.Parameters.AddWithValue("@warehouse_id", warehousesModel.idW);
+                    cmd.Parameters.AddWithValue("@capacity", warehousesModel.Capacity);
+                    cmd.Parameters.AddWithValue("@creation_date", warehousesModel.Created);
+                   
+                    cmd.CommandType = CommandType.Text;
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    rep = rowsAffected > 0;
+
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                rep = false;
+            }
+            return rep;
+        }
+
+
     }
 }

@@ -11,7 +11,9 @@ namespace pawnShop.Models
         public string? Location { get; set; }
         [Required(ErrorMessage = "creation is required")]
         public DateTime? creation { get; set; }
- 
+        public ShelvesModel Shelves { get; set; }
+    
         public DateTime? updatedDate { get; set; }
+
     }
 }

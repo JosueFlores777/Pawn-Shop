@@ -1,4 +1,4 @@
-﻿@model WarehousesModel
+﻿@model ShelvesModel
 
 @{
     ViewData["Title"] = "Save";
@@ -13,28 +13,38 @@
         Save
     </div>
     <div class="card-body">
-        <form class="row g-3" asp-action="Save"  asp-controller="Warehouses" method="post">
+        <form class="row g-3" asp-action="SaveShavle" asp-controller="Warehouses" method="post">
             <div class="col-md-6">
-             
+
                 <label for="inputname" class="form-label">Name Ware houses</label>
                 <input type="text" class="form-control" id="inputname" asp-for="Name">
             </div>
-  
+
             <div class="col-md-6">
-                
-                <label for="inputLocation" class="form-label">Location</label>
-                <input type="text" class="form-control" id="inputLocation" placeholder="15ad ad" asp-for="Location">
+
+                <label for="inputLocation" class="form-label">Capacity</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="15ad ad" asp-for="Capacity">
             </div>
-  
+
             <div class="col-md-6">
 
                 <label for="CreationDate" class="form-label">Creation Date </label>
-                <input type="text" class="form-control" id="CreationDate" asp-for="creation">
+                <input type="text" class="form-control" id="CreationDate" asp-for="Created">
+            </div>
+        
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">Estado</label>
+                <select id="inputState" class="form-select" name="idW" asp-for="idW">
+                    <option selected>Elige...</option>
+                    @foreach (var warehouseInfo in ViewBag.WarehouseInfoList)
+                    {
+                        <option value="@warehouseInfo.Id">@warehouseInfo.Name</option>
+                    }
+                </select>
             </div>
 
-   
             <div class="col-12">
-              
+
                 <button type="submit" class="btn btn-primary">Save</button>
                 <button class="btn btn-primary" asp-action="List" asp-controller="Warehouses">Back</button>
             </div>
@@ -47,7 +57,7 @@
     var currentDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
 
     document.getElementById('CreationDate').value = currentDate;
-   
+
     document.getElementById('HiringDate').value = currentDate;
     $('#inlineFormCustomSelect').on('change', function () {
         var selectedRole = $(this).val();

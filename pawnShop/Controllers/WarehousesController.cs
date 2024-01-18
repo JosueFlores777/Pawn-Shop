@@ -35,6 +35,47 @@ namespace pawnShop.Controllers
         }
 
 
+
+        /**/
+
+        public IActionResult SaveShavle()
+        {
+
+            WarehousesDtoa warehousesDto = new WarehousesDtoa();
+            var warehouseInfoList = warehousesDto.GetWarehouseInfo();
+            ViewBag.WarehouseInfoList = warehouseInfoList;
+            return View();
+
+
+        }
+
+        [HttpPost]
+      
+        public IActionResult SaveShavle(ShelvesModel shelvesModel)
+        {
+            WarehousesDtoa warehousesDto = new WarehousesDtoa();
+
+            if (ModelState.IsValid)
+            {
+                
+                var response = wearehouses.SaveShavle(shelvesModel);
+
+                if (response)
+                {
+                  
+                    return RedirectToAction("SaveShavle");
+                }
+    
+            }
+
+          
+            var warehouseInfoList = warehousesDto.GetWarehouseInfo();
+            ViewBag.WarehouseInfoList = warehouseInfoList;
+
+            return View("SaveShavle", shelvesModel);
+        }
+
+
         public IActionResult Edit(int id) {
             var reponse = wearehouses.Get(id);
             return View(reponse); 
