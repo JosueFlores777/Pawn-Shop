@@ -19,14 +19,10 @@ namespace pawnShop.Controllers
         {
             var viewModel = new UserModel
             {
-                Name = HttpContext.Session.GetString("userName")
+                Name = HttpContext.Session.GetString("userName"),
+                Role = HttpContext.Session.GetString("userRole")
             };
             return View(viewModel);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         public IActionResult User()

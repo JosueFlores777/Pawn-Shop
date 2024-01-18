@@ -240,14 +240,10 @@ E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\ref
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authentication.Core.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authentication.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authorization.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Authorization.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Endpoints.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Forms.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Server.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Components.Web.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cors.dll
@@ -278,7 +274,6 @@ E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\ref
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Identity.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Localization.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Localization.Routing.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Metadata.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Mvc.Core.dll
@@ -363,10 +358,8 @@ E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\ref
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Extensions.ObjectPool.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Extensions.Options.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Extensions.Primitives.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Extensions.WebEncoders.dll
-E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.JSInterop.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.Net.Http.Headers.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.VisualBasic.Core.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\refs\Microsoft.VisualBasic.dll
@@ -546,3 +539,10 @@ E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Sys
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\System.Web.WebPages.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.JSInterop.dll

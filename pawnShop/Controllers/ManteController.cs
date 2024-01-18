@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using pawnShop.Data;
 using pawnShop.Models;
+using pawnShop.Validated;
 
 namespace pawnShop.Controllers
 {
+    [ValidarSesion]
     public class ManteController : Controller
     {
         UsersDto usersDto = new UsersDto();
@@ -27,19 +29,17 @@ namespace pawnShop.Controllers
         [HttpPost]
         public IActionResult Save(ClientModel usersModel)
         {
-      
             var response = usersDto.Save(usersModel);
 
             if (!ModelState.IsValid)
             {
-               return View(); 
+                return View();
             }
 
             if (response)
                 return RedirectToAction("Listar");
-            else 
+            else
                 return View();
-
         }
 
 

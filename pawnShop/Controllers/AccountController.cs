@@ -3,12 +3,20 @@ using System.Data.SqlClient;
 using pawnShop.Models;
 using System;
 using Microsoft.AspNetCore.Authentication;
+using pawnShop.DataDto;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace pawnShop.Controllers
 {
     public class AccountController : Controller
     {
-        static string Cadena = "Data Source=DESKTOP-GTQCNQG\\SQLEXPRESS;Initial Catalog=pawnshop; Integrated Security=True;";
+        private readonly AccountDto _accountDto;
+        public AccountController()
+        {
+            _accountDto = new AccountDto();
+        }
 
         public IActionResult Login()
         {
@@ -18,43 +26,29 @@ namespace pawnShop.Controllers
         [HttpPost] 
         public ActionResult Login(UserModel userModel)
         {
-            using (SqlConnection conn = new SqlConnection(Cadena))
+            bool loginResult = _accountDto.Login(userModel, HttpContext);
+     
+            if (loginResult)
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM employees WHERE email = @email OR Password = @Password", conn);
-                cmd.Parameters.AddWithValue("email", userModel.Email);
-                cmd.Parameters.AddWithValue("Password", userModel.Password);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        userModel.Id = Convert.ToInt32(reader["Id"]);
-                        userModel.Name = Convert.ToString(reader["Name"]);
-                        userModel.Role = Convert.ToString(reader["Role"]);
-
-                       
-                        HttpContext.Session.SetInt32("userId", userModel.Id);
-                        HttpContext.Session.SetString("userName", userModel.Name);
-                        HttpContext.Session.SetString("userRole", userModel.Role);
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ViewData["Menssaje"] = "User not found";
-                        return View();
-                    }
-                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewData["Message"] = "User not found";
+                return View();
             }
         }
 
 
         public ActionResult Logout()
         {
-			HttpContext.Session.Clear();
-			HttpContext.SignOutAsync(); 
-			return RedirectToAction("Login", "Account");
-		}
+            Console.WriteLine("Logout method called");
+            HttpContext.Session.Clear(); 
+            HttpContext.Session.CommitAsync();
+
+            HttpContext.SignOutAsync();
+
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

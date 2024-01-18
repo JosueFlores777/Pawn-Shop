@@ -21,9 +21,9 @@ namespace pawnShop.Data
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    query = "SELECT * FROM users WHERE name =@search' OR lastName = @search";
+                    query = "SELECT * FROM users WHERE name = @search OR lastName = @search";
                     cmd = new SqlCommand(query, conexion);
-                    cmd.Parameters.AddWithValue("@search", "%" + search + "%");
+                    cmd.Parameters.AddWithValue("@search", search);
 
                     using (var dr = cmd.ExecuteReader())
                     {
@@ -123,7 +123,6 @@ namespace pawnShop.Data
 
         }
 
-
         public bool Save(ClientModel oUser)
         {
 
@@ -204,7 +203,6 @@ namespace pawnShop.Data
 
             return resp;
         }
-
 
         public bool Delete(int idUser)
         {

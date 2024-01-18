@@ -2,9 +2,11 @@
 using pawnShop.Models;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace pawnShop.Data
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class EmployeedDto
     {
         public List<EmployeeModel> List(string search)
@@ -40,7 +42,7 @@ namespace pawnShop.Data
                                 Role = dr["role"].ToString(),
                                 HirringDate = Convert.ToDateTime(dr["hiring_date"]),
                                 CreationDate = Convert.ToDateTime(dr["creation_date"]),
-                                LastUpdatedDate = Convert.ToDateTime(dr["modification_date"]),
+                                LastUpdatedDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"]),
 
                             });
                         }
@@ -106,8 +108,8 @@ namespace pawnShop.Data
                         oEmployeed.Role = dr["role"].ToString();
                         oEmployeed.HirringDate = Convert.ToDateTime(dr["hiring_date"]);
                         oEmployeed.CreationDate = Convert.ToDateTime(dr["creation_date"]);
-                        oEmployeed.LastUpdatedDate = Convert.ToDateTime(dr["modification_date"]);
-
+                        oEmployeed.LastUpdatedDate = dr["modification_date"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(dr["modification_date"]);
+             
                     }
                 }
 
@@ -165,17 +167,16 @@ namespace pawnShop.Data
                 {
                     conexion.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE employees SET @name=name, phone = @phone, lastName = @lastName, userID = @userID, email = @email, password = @password, role = @role, hiring_date = @hiring_date, modification_date=@modification_date WHERE id = @id", conexion);
+                    SqlCommand cmd = new SqlCommand("UPDATE employees SET name = @name, phone = @phone, lastName = @lastName, userID = @userID, email = @email, password = @password, role = @role,modification_date=@modification_date WHERE id = @id", conexion);
 
-                    cmd.Parameters.AddWithValue("@UserId", employeeModel.Id);
+                    cmd.Parameters.AddWithValue("@id", employeeModel.Id); // Corrected parameter name
                     cmd.Parameters.AddWithValue("@name", employeeModel.Name);
                     cmd.Parameters.AddWithValue("@phone", employeeModel.Phone);
                     cmd.Parameters.AddWithValue("@lastName", employeeModel.LastName);
                     cmd.Parameters.AddWithValue("@userID", employeeModel.IDUser);
                     cmd.Parameters.AddWithValue("@email", employeeModel.Email);
-                    cmd.Parameters.AddWithValue("@Password", employeeModel.Password);
-                    cmd.Parameters.AddWithValue("@Role", employeeModel.Role);
-                    cmd.Parameters.AddWithValue("@hiring_date", employeeModel.HirringDate);
+                    cmd.Parameters.AddWithValue("@password", employeeModel.Password); // Corrected parameter name
+                    cmd.Parameters.AddWithValue("@role", employeeModel.Role);
                     cmd.Parameters.AddWithValue("@modification_date", employeeModel.LastUpdatedDate);
 
                     cmd.CommandType = CommandType.Text;

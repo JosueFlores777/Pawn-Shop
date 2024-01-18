@@ -1,19 +1,19 @@
 ﻿@model EmployeeModel
 @{
-    ViewData["Title"] = "Save";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Save</h1>
+<h1>Edit</h1>
 
 <div class="card">
     <div class="card-header">
-        Save
+        Edit
     </div>
     <div class="card-body">
-        <form asp-action="Save" asp-controller="Employeed" method="post">
+        <form asp-action="Edit" asp-controller="Employeed" method="post">
             <div class="form-group">
-                <label for="InputId">DNI employee</label>
+                <label for="InputId">DEI Cliente</label>
                 <input type="text" class="form-control" id="validationServer03" placeholder="1 568da756" aria-describedby="InputId" asp-for="IDUser">
 
             </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" asp-for="Password">
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" asp-for="Password">
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -53,17 +53,12 @@
                     </select>
                 </div>
             </div>
-         
+
             <br />
 
             <div class="form-group">
-                <label for="CreationDate">Creation date</label>
-                <input type="text" class="form-control" id="CreationDate" placeholder="MM/dd/yy" readonly asp-for="CreationDate">
-            </div>
-
-            <div class="form-group">
-                <label for="HiringDate">Hiring Date</label>
-                <input type="text" class="form-control" id="HiringDate" placeholder="MM/dd/yy" readonly asp-for="HirringDate">
+                <label for="LastUpdatedDate">Update date</label>
+                <input type="text" class="form-control" id="LastUpdatedDate" placeholder="MM/dd/yy" readonly asp-for="LastUpdatedDate">
             </div>
             <br />
             <br />
@@ -77,15 +72,9 @@
 
     var currentDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
 
-    document.getElementById('CreationDate').value = currentDate;
-
-    document.getElementById('HiringDate').value = currentDate;
-    $('#inlineFormCustomSelect').on('change', function () {
-        var selectedRole = $(this).val();
-        $('#Role').val(selectedRole);
-    });
-
+    document.getElementById('LastUpdatedDate').value = currentDate;
 
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
