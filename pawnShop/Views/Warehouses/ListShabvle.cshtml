@@ -1,4 +1,4 @@
-﻿@model List<WarehousesModel>
+﻿@model List<ShelvesModel>
 @{
     ViewData["Title"] = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,14 +8,16 @@
 
 <div class="card">
     <div class="card-header">
-        List Ware house
+        List Shelf
     </div>
 
     <div class="card-body">
         <form class="form-check-inline" method="get" action="@Url.Action("ListShabvle","Warehouses")">
             <input type="text" name="search" class="sr-only" placeholder="Enter Warehouse Name or New Shelf Name" />
             <button type="submit" class="btn btn-primary">Search</button>
-            <button type="submit" class="btn btn-secondary">Reset</button>
+            <a class="btn btn-secondary" asp-action="ListShabvle" asp-controller="Warehouses">
+                <i class="bg bi-plus-circle"></i> Reset
+            </a>
         </form>
 
         <br />
@@ -27,16 +29,16 @@
         <a class="btn btn-success" asp-action="SaveShavle" asp-controller="Warehouses">
             <i class="bg bi-plus-circle"></i> Create New Shelf
         </a>
-        <a class="btn btn-info" asp-action="ListShabvle" asp-controller="Warehouses">
-            <i class="bg bi-plus-circle"></i> See table Shelf
+        <a class="btn btn-info"  asp-action="List" asp-controller="Warehouses">
+            <i class="bg bi-plus-circle"></i> See table Ware Houses
         </a>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Warehouse Name</th>
+             
                     <th scope="col">Shelf Name</th>
-                    <th scope="col">Location</th>
+                    <th scope="col">WareHosouses</th>
                     <th scope="col">Capacity</th>
                     <th scope="col">Creation Date</th>
                     <th scope="col">Updated Date</th>
@@ -50,12 +52,11 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td>@item.Shelves.Name</td>
-                        <td>@item.Location</td>
-                        <td>@item.Shelves.Capacity</td>
-                        <td>@item.creation</td>
-                        <td>@item.updatedDate</td>
-                        <td><a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Warehouses" asp-route-id="@item.Id">Edit</a></td>
+                       <td>@item.NameWa</td>
+                        <td>@item.Capacity</td>
+                        <td>@item.Created</td>
+                        <td>@item.Updated</td>
+                        <td><a class="btn btn-warning btn-sm" asp-action="EditShabvle" asp-controller="Warehouses" asp-route-id="@item.Id">Edit</a></td>
                         <td><a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Warehouses" asp-route-id="@item.Id">Delete</a></td>
                     </tr>
                 }

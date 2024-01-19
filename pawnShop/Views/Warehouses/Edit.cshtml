@@ -1,8 +1,56 @@
-﻿
+﻿@model WarehousesModel
+
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Edit Ware houses</h1>
 
+<br />
+<div class="card">
+    <div class="card-header">
+        Edit 
+    </div>
+    <div class="card-body">
+        <form class="row g-3" asp-action="Edit" asp-controller="Warehouses" method="post">
+
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">Name Ware houses</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="15ad ad" asp-for="Name">
+            </div>
+
+            
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Location</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="15ad ad" asp-for="Location">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="CreationDate" class="form-label">Update Date </label>
+                <input type="text" class="form-control" id="CreationDate" readonly asp-for="updatedDate">
+            </div>
+
+
+            <div class="col-12">
+
+                <button type="submit" class="btn btn-primary">Edit</button>
+                <button class="btn btn-primary" asp-action="List" asp-controller="Warehouses">Back</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var currentDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+
+    document.getElementById('CreationDate').value = currentDate;
+
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

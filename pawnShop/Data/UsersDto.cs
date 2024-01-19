@@ -21,7 +21,7 @@ namespace pawnShop.Data
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    query = "SELECT * FROM users WHERE name = @search OR lastName = @search";
+                    query = "SELECT u.*, e.name AS registered_by_name\r\nFROM users u\r\nLEFT JOIN employees e ON u.id = e.id\r\nWHERE u.name = @search OR u.lastName = @search;\r\nh";
                     cmd = new SqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@search", search);
 
@@ -34,6 +34,7 @@ namespace pawnShop.Data
                                 Id = Convert.ToInt32(dr["id"]),
                                 Name = dr["name"].ToString(),
                                 LastName = dr["lastName"].ToString(),
+                                NameEmplooye = dr["registered_by_name"].ToString(),
                                 IDClient = dr["IDClient"].ToString(),
                                 Email = dr["email"].ToString(),
                                 Password = dr["password"].ToString(),
@@ -42,7 +43,7 @@ namespace pawnShop.Data
                                 CreationDate = Convert.ToDateTime(dr["creation_date"]),
                                 UpdateDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"]),
                                 CreateEmployedId = Convert.ToInt32(dr["created_by_employee_id"]),
-                                UpdatedByEmployeeId = (dr["update_by_employee_id"] != DBNull.Value) ? Convert.ToInt32(dr["update_by_employee_id"]) : 0,
+                            
 
                             });
                         }
@@ -50,7 +51,7 @@ namespace pawnShop.Data
                 }
                 else
                 {
-                    cmd = new SqlCommand("SELECT * from users", conexion);
+                    cmd = new SqlCommand("\r\nSELECT u.*, e.name AS registered_by_name\r\nFROM users u\r\nLEFT JOIN employees e ON u.id = e.id", conexion);
                     cmd.CommandType = CommandType.Text;
 
                     using (var dr = cmd.ExecuteReader())
@@ -61,6 +62,7 @@ namespace pawnShop.Data
                             {
                                 Id = Convert.ToInt32(dr["id"]),
                                 Name = dr["name"].ToString(),
+                                NameEmplooye = dr["registered_by_name"].ToString(),
                                 IDClient = dr["IDClient"].ToString(),
                                 LastName = dr["lastName"].ToString(),
                                 Email = dr["email"].ToString(),
@@ -70,8 +72,7 @@ namespace pawnShop.Data
                                 CreationDate = Convert.ToDateTime(dr["creation_date"]),
                                 UpdateDate = dr["modification_date"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["modification_date"]),
                                 CreateEmployedId = Convert.ToInt32(dr["created_by_employee_id"]),
-                                UpdatedByEmployeeId = (dr["update_by_employee_id"] != DBNull.Value) ? Convert.ToInt32(dr["update_by_employee_id"]) : 0,
-
+                        
                             });
                         }
                     }

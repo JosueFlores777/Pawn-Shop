@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br />
-<h1>Save WareHouses</h1>
+<h1>Save Shelf</h1>
 
 <br />
 <div class="card">
@@ -17,30 +17,32 @@
             <div class="col-md-6">
 
                 <label for="inputname" class="form-label">Name Ware houses</label>
-                <input type="text" class="form-control" id="inputname" asp-for="Name">
+                <input type="text" class="form-control" id="inputname" placeholder="Name WareHouses" asp-for="Name">
             </div>
 
             <div class="col-md-6">
 
                 <label for="inputLocation" class="form-label">Capacity</label>
-                <input type="text" class="form-control" id="inputLocation" placeholder="15ad ad" asp-for="Capacity">
+                <input type="number" class="form-control" id="inputLocation" placeholder="1234" asp-for="Capacity">
             </div>
 
             <div class="col-md-6">
 
                 <label for="CreationDate" class="form-label">Creation Date </label>
-                <input type="text" class="form-control" id="CreationDate" asp-for="Created">
+                <input type="text" readonly class="form-control" id="CreationDate" asp-for="Created">
             </div>
         
             <div class="col-md-4">
-                <label for="inputState" class="form-label">Estado</label>
+                <label for="inputState" class="form-label">Ware Houses</label>
                 <select id="inputState" class="form-select" name="idW" asp-for="idW">
-                    <option selected>Elige...</option>
+                    <option selected>Choose...</option>
                     @foreach (var warehouseInfo in ViewBag.WarehouseInfoList)
                     {
                         <option value="@warehouseInfo.Id">@warehouseInfo.Name</option>
                     }
+                    
                 </select>
+ 
             </div>
 
             <div class="col-12">

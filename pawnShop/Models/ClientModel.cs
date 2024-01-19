@@ -8,6 +8,7 @@ namespace pawnShop.Models
 
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
+        public string NameEmplooye { get; set; }
 
         [Required(ErrorMessage = "IDClient is required")]
         public string IDClient { get; set; }
@@ -38,6 +39,7 @@ namespace pawnShop.Models
 
         public string EmployedCreate { get; set; }
         public int CreateEmployedId { get; set; }
+
         public int LoggedInUserId { get; set; }
     }
 }

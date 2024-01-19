@@ -7,6 +7,7 @@ using pawnShop.DataDto;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace pawnShop.Controllers
 {
@@ -23,11 +24,11 @@ namespace pawnShop.Controllers
             return View();
         }
 
-        [HttpPost] 
+        [HttpPost]
         public ActionResult Login(UserModel userModel)
         {
             bool loginResult = _accountDto.Login(userModel, HttpContext);
-     
+
             if (loginResult)
             {
                 return RedirectToAction("Index", "Home");
@@ -42,13 +43,14 @@ namespace pawnShop.Controllers
 
         public ActionResult Logout()
         {
-   
-            HttpContext.Session.Clear(); 
+
+            HttpContext.Session.Clear();
             HttpContext.Session.CommitAsync();
 
-            HttpContext.SignOutAsync();
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Login", "Account");
         }
     }
-}
+
+    }

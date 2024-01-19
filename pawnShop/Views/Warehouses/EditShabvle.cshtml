@@ -1,0 +1,75 @@
+﻿@model ShelvesModel
+
+@{
+    ViewData["Title"] = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h1>Edit Shelf</h1>
+
+<br />
+<div class="card">
+    <div class="card-header">
+        Edit
+    </div>
+    <div class="card-body">
+
+        <form class="row g-3" asp-action="EditShabvle" asp-controller="Warehouses" method="post">
+   
+                <div class="col-md-4">
+                    <label for="inputname" class="form-label">Name Ware houses</label>
+                    <select id="inputState" class="form-select" name="idW" asp-for="idW">
+
+                        <option value="@Model.idW">@Model.NameWa</option>
+                    @foreach (var warehouseInfo in ViewBag.WarehouseInfoList)
+                    {
+                        <option value="@warehouseInfo.Id">@warehouseInfo.Name</option>
+                    }
+
+
+                </select>
+
+                </div>
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Name</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="name" asp-for="Name">
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Capacity</label>
+                <input type="number" class="form-control" id="inputLocation" placeholder="1234" asp-for="Capacity">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="CreationDate" class="form-label">Update Date </label>
+                <input type="text" class="form-control" id="CreationDate" readonly asp-for="Created">
+            </div>
+
+     
+
+            <div class="col-12">
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" asp-action="ListShabvle" asp-controller="Warehouses">Back</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var currentDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+
+    document.getElementById('CreationDate').value = currentDate;
+
+
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

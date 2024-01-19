@@ -14,7 +14,7 @@ namespace pawnShop.DataDto
             var cn = new Conexion();
             using (var conexion = new SqlConnection(cn.getConexion()))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM employees WHERE email = @email OR Password = @Password", conexion);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM employees WHERE email = @email AND Password = @Password", conexion);
 
 
                 cmd.Parameters.AddWithValue("@email", oUser.Email);

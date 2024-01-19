@@ -7,6 +7,7 @@ namespace pawnShop.Models
         [Required(ErrorMessage = "IDUser is required")]
         public string IDUser { get; set; }
 
+
         [Required(ErrorMessage = "name is required")]
         public string? Name { get; set; }
 
