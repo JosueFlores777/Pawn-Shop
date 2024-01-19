@@ -1,0 +1,279 @@
+CREATE DATABASE pawnShop;
+GO
+
+USE pawnShop;
+GO
+
+-- Create the employees table
+CREATE TABLE employees (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name VARCHAR(255),
+  phone varchar(125),
+  lastName Varchar(27),
+  userID VARCHAR(30),
+  email VARCHAR(255),
+  password VARCHAR(255),
+  role VARCHAR(255),
+  hiring_date DATE,
+  creation_date DATETIME,
+  modification_date DATETIME
+);
+GO
+
+CREATE TABLE users (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  IDClient VARCHAR(125),
+  name VARCHAR(255),
+  lastName Varchar(27),
+  email VARCHAR(255),
+  password VARCHAR(255),
+  phone varchar(18),
+  role VARCHAR(50),
+  creation_date DATETIME,
+  modification_date DATETIME,
+  created_by_employee_id INT,
+  update_by_employee_id int,
+  FOREIGN KEY (created_by_employee_id) REFERENCES employees(id)
+);
+GO
+
+-- Create the warehouses table
+CREATE TABLE warehouses (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name VARCHAR(255),
+  location VARCHAR(255),
+  creation_date DATETIME,
+  modification_date DATETIME
+);
+GO
+
+-- Create the shelves table
+CREATE TABLE shelves (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name varchar(255),
+  warehouse_id INT,
+  capacity INT,
+  creation_date DATETIME,
+  modification_date DATETIME,
+  FOREIGN KEY (warehouse_id) REFERENCES warehouses(id)
+);
+GO
+
+-- Create the items table
+CREATE TABLE items (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  name VARCHAR(255),
+  Quantity int,
+  description TEXT,
+  estimated_value DECIMAL(10,2),
+  shelf_id INT,
+  creation_date DATETIME,
+  modification_date DATETIME,
+  FOREIGN KEY (shelf_id) REFERENCES shelves(id)
+);
+GO
+
+-- Create the pawns table
+CREATE TABLE pawns (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  user_id INT,
+  item_id INT,
+  pawn_date DATE,
+  shelf_id INT,
+  creation_date DATETIME,
+  modification_date DATETIME,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (item_id) REFERENCES items(id),
+  FOREIGN KEY (shelf_id) REFERENCES shelves(id)
+);
+GO
+
+-- Create the transaction types table
+CREATE TABLE transaction_types (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  transaction_type VARCHAR(255),
+  creation_date DATETIME,
+  modification_date DATETIME
+);
+GO
+
+-- Create the transactions table
+CREATE TABLE transactions (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  user_id INT,
+  transaction_type_id INT,
+  amount DECIMAL(10,2),
+  transaction_date DATE,
+  repurchase_date DATE,
+  shelf_id INT,
+  creation_date DATETIME,
+  modification_date DATETIME,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (transaction_type_id) REFERENCES transaction_types(id),
+  FOREIGN KEY (shelf_id) REFERENCES shelves(id)
+);
+GO
+
+go
+
+INSERT INTO employees (name, phone, lastName, userID, email, password, role, hiring_date, creation_date, modification_date)
+VALUES 
+  ('Josue', '123456789', 'Doe', 'john_doe', 'admin@gmail.com', 'password123', 'Administrator', '2023-01-15', GETDATE(), GETDATE()),
+  ('Jane Smith', '987654321', 'Smith', 'jane_smith', 'jane@example.com', 'pass456', 'Employee', '2023-02-20', GETDATE(), GETDATE());
+
+
+
+go
+INSERT INTO users (IDClient, name, lastName, email, password, phone, role, creation_date, modification_date, created_by_employee_id, update_by_employee_id)
+VALUES 
+  ('CL123', 'Client User', 'ClientLast', 'client@example.com', 'clientpass', '555-1234', 'Client', GETDATE(), GETDATE(), 1, 1),
+  ('CL456', 'Another Client', 'AnotherLast', 'another_client@example.com', 'pass789', '555-5678', 'Client', GETDATE(), GETDATE(), 2, 2);
+
+
+go 
+INSERT INTO transaction_types (transaction_type, creation_date)
+VALUES 
+  ('Purchase', GETDATE()),
+  ('Refund', GETDATE()),
+  ('Transfer', GETDATE());
+
+
+go
+
+INSERT INTO warehouses (name, location, creation_date, modification_date)
+VALUES 
+  ('Warehouse A', 'Location A', GETDATE(), GETDATE()),
+  ('Warehouse B', 'Location B', GETDATE(), GETDATE());
+
+go
+
+INSERT INTO shelves (name, warehouse_id, capacity, creation_date, modification_date)
+VALUES 
+  ('Shelf 1', 1, 100, GETDATE(), GETDATE()),
+  ('Shelf 2', 1, 150, GETDATE(), GETDATE()),
+  ('Shelf 3', 2, 120, GETDATE(), GETDATE());
+
+go
+
+-- Create procedure InsertWarehouseAndShelfData
+CREATE PROCEDURE InsertWarehouseAndShelfData
+    @warehouseName VARCHAR(255),
+    @warehouseLocation VARCHAR(255),
+    @shelfName VARCHAR(255),
+    @shelfCapacity INT
+AS
+BEGIN
+    DECLARE @warehouseId INT;
+
+    -- Insert data into warehouses table
+    INSERT INTO warehouses (name, location, creation_date)
+    VALUES (@warehouseName, @warehouseLocation, GETDATE());
+
+    SET @warehouseId = SCOPE_IDENTITY();
+
+    -- Insert data into shelves table
+    INSERT INTO shelves (name, warehouse_id, capacity, creation_date)
+    VALUES (@shelfName, @warehouseId, @shelfCapacity, GETDATE());
+END;
+GO
+
+-- Create procedure UpdateWarehouseDetails
+CREATE PROCEDURE UpdateWarehouseDetails
+    @id INT,
+    @newWarehouseName NVARCHAR(255),
+    @newShelfName NVARCHAR(255),
+    @newLocation NVARCHAR(255),
+    @newCapacity INT
+AS
+BEGIN
+    -- Update warehouse details
+    UPDATE warehouses
+    SET 
+        name = @newWarehouseName,
+        location = @newLocation,
+        modification_date = GETDATE()
+    WHERE 
+        id = @id;
+
+    -- Update shelf details
+    UPDATE shelves
+    SET 
+        name = @newShelfName,
+        capacity = @newCapacity,
+        modification_date = GETDATE()
+    WHERE 
+        warehouse_id = @id;
+END;
+GO
+
+-- Create procedure UpdateShelf
+CREATE PROCEDURE dbo.UpdateShelf
+    @shelfId INT,
+    @newName VARCHAR(255),
+    @newWarehouseId INT,
+    @newCapacity INT
+AS
+BEGIN
+    UPDATE shelves
+    SET
+        name = @newName,
+        warehouse_id = @newWarehouseId,
+        capacity = @newCapacity,
+        modification_date = GETDATE()
+    WHERE
+        id = @shelfId;
+END;
+GO
+
+
+
+
+
+
+CREATE PROCEDURE InsertData
+    @itemName VARCHAR(255),
+    @itemDescription TEXT,
+    @estimatedValue DECIMAL(10,2),
+    @shelfId INT,
+    @pawnUserId INT,
+    @pawnDate DATE,
+    @transactionUserId INT,
+    @transactionTypeId INT,
+    @transactionAmount DECIMAL(10,2),
+    @transactionDate DATE,
+    @quantity INT,
+    @repurchaseDate DATE
+AS
+BEGIN
+    DECLARE @transactionId INT;
+    DECLARE @currentCapacity INT;
+
+    BEGIN TRANSACTION;
+
+    -- Insert into transactions with user_id
+    INSERT INTO transactions (user_id, transaction_type_id, repurchase_date, amount, transaction_date, shelf_id, creation_date, modification_date)
+    VALUES (@transactionUserId, @transactionTypeId, @repurchaseDate, @transactionAmount, @transactionDate, @shelfId, GETDATE(), GETDATE());
+
+    SET @transactionId = SCOPE_IDENTITY();
+
+    -- Insert into items
+    DECLARE @itemId INT;
+    INSERT INTO items (name, description,Quantity, estimated_value, shelf_id, creation_date, modification_date)
+    VALUES (@itemName, @itemDescription, @quantity,@estimatedValue, @shelfId, GETDATE(), GETDATE());
+
+    SET @itemId = SCOPE_IDENTITY();
+
+    -- Insert into pawns with user_id and quantity
+    INSERT INTO pawns (user_id, item_id, pawn_date, shelf_id, creation_date, modification_date)
+    VALUES (@pawnUserId, @itemId, @pawnDate, @shelfId, GETDATE(), GETDATE());
+
+    -- Update shelf capacity only once
+    SELECT @currentCapacity = capacity FROM shelves WHERE id = @shelfId;
+    UPDATE shelves
+    SET capacity = @currentCapacity - @quantity
+    WHERE id = @shelfId;
+
+    COMMIT;
+
+    SELECT @transactionId AS TransactionId;
+END;

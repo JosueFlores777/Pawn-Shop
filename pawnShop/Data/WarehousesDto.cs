@@ -84,13 +84,13 @@ namespace pawnShop.Data
                                     Name = dr["WarehouseName"].ToString(),
                                     Location = dr["WarehouseLocation"].ToString(),
                                     creation = Convert.ToDateTime(dr["WarehouseCreation"]),
-                                    updatedDate = dr["WarehouseModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["WarehouseModification"]),
+                                    updatedDate = dr["WarehouseModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["WarehouseModification"]).Date,
                                     Shelves = new ShelvesModel
                                     {
                                         Id = Convert.ToInt32(dr["ShelfId"]),
                                         Name = dr["ShelfName"].ToString(),
                                         Capacity = dr["ShelfCapacity"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["ShelfCapacity"]),
-                                        Created = Convert.ToDateTime(dr["ShelfCreation"]),
+                                        Created = Convert.ToDateTime(dr["ShelfCreation"]).Date,
                                         Updated = dr["ShelfModification"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ShelfModification"]),
                                     }
                                 });
@@ -409,7 +409,6 @@ namespace pawnShop.Data
             return resp;
         }
 
-
         public bool SaveShavle(ShelvesModel warehousesModel)
         {
 
@@ -444,7 +443,40 @@ namespace pawnShop.Data
             return rep;
         }
 
+
+        public bool DeleteShavl(int Id)
+        {
+            bool resp;
+
+            try
+            {
+                var cn = new Conexion();
+
+                using (var conexion = new SqlConnection(cn.getConexion()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("Delete from shelves where id =@id", conexion);
+                    cmd.Parameters.AddWithValue("@id", Id);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    resp = rowsAffected > 0;
+                    conexion.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                resp = false;
+            }
+
+            return resp;
+        }
+
+
         #endregion
+
+
 
     }
 }

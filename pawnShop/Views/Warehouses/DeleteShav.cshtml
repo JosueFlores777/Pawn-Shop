@@ -1,0 +1,91 @@
+﻿@model ShelvesModel
+@{
+    ViewData["Title"] = "DeleteShav";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<h1>DeleteShav</h1>
+
+
+<br />
+<div class="card">
+    <div class="card-header">
+        Delete
+    </div>
+    <div class="card-body">
+
+        <form class="row g-3" asp-action="DeleteShav" asp-controller="Warehouses" method="post">
+
+            <div class="col-md-4">
+                <label class="form-label">Name Ware houses</label>
+                <select id="inputState" class="form-select" name="idW" readonly asp-for="idW">
+
+                    <option for="inputname" value="@Model.idW">@Model.NameWa</option>
+
+
+                </select>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Name</label>
+                <input type="text" class="form-control" id="inputLocation" readonly placeholder="name" asp-for="Name">
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Capacity</label>
+                <input type="number" class="form-control" id="inputLocation" readonly placeholder="1234" asp-for="Capacity">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="CreationDate" class="form-label">Update Date </label>
+                <input type="text" class="form-control" id="CreationDate" readonly readonly asp-for="Created">
+            </div>
+
+
+
+            <div class="col-12">
+
+                <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>
+                <button class="btn btn-primary" asp-action="ListShabvle" asp-controller="Warehouses">Back</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("deleteButton").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var name = document.getElementById("inputLocation").value;
+
+            Swal.fire({
+                title: "Are you sure to delete " + name + " ?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                        timer: 10000
+                    }).then(() => {
+                        document.querySelector("form").submit();
+                    });
+                }
+            });
+        });
+    });
+</script>

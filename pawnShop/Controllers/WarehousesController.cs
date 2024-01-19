@@ -7,7 +7,6 @@ namespace pawnShop.Controllers
     public class WarehousesController : Controller
     {
         WarehousesDto wearehouses = new WarehousesDto();
-       
 
         #region Ware
         public IActionResult List(string search)
@@ -134,7 +133,6 @@ namespace pawnShop.Controllers
         }
 
         [HttpPost]
-
         public IActionResult SaveShavle(ShelvesModel shelvesModel)
         {
             WarehousesDtoa warehousesDto = new WarehousesDtoa();
@@ -158,6 +156,30 @@ namespace pawnShop.Controllers
 
             return View("ListShabvle", shelvesModel);
         }
+
+        public IActionResult DeleteShav(int id)
+        {
+            var response = wearehouses.GetShabvle(id);
+            if (response != null)
+            {
+                return View(response);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteShav(ShelvesModel shelvesModel) { 
+            var reponse = wearehouses.DeleteShavl(shelvesModel.Id);
+
+            if (reponse)
+                return RedirectToAction("List");
+            else
+                return View();
+        }
+
 
         #endregion
     }

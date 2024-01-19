@@ -21,7 +21,7 @@ namespace pawnShop.Data
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    query = "SELECT u.*, e.name AS registered_by_name\r\nFROM users u\r\nLEFT JOIN employees e ON u.id = e.id\r\nWHERE u.name = @search OR u.lastName = @search;\r\nh";
+                    query = "SELECT u.*, e.name AS registered_by_name FROM users u LEFT JOIN employees e ON u.id = e.id WHERE u.name = @search OR u.lastName = @search;";
                     cmd = new SqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@search", search);
 
