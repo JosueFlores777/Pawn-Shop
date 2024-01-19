@@ -23,7 +23,8 @@ namespace pawnShop.Data
                 SqlCommand cmd;
                 if (!string.IsNullOrEmpty(search))
                 {
-                    query = "SELECT * FROM employees WHERE name = @search OR lastName = @search";
+
+                    query = "SELECT * FROM employees WHERE name LIKE '%' + @search + '%' OR lastName LIKE '%' + @search + '%'";
                     cmd = new SqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@search", search);
                     using (var dr = cmd.ExecuteReader())

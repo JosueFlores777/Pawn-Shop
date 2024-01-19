@@ -27,7 +27,7 @@ namespace pawnShop.Data
                        b.creation_date AS ShelfCreation, b.modification_date AS ShelfModification
                 FROM warehouses a
                 INNER JOIN shelves b ON a.id = b.warehouse_id 
-                WHERE a.name = @search OR b.name = @search;
+                WHERE a.name LIKE '%' + @search + '%' OR b.name LIKE '%' + @search + '%';
             ";
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))

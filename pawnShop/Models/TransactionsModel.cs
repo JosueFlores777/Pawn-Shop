@@ -6,7 +6,11 @@
         public ClientModel Users { get; set; }
         public TransactionTypeModel TransactionType { get; set; }
         public ShelvesModel Shelves { get; set; }
+
+        public ItemsModel items{ get; set; }
         public double Amount { get; set; }
+
+        public DateTime Repurchase { get; set; }
         public DateTime Creation {  get; set; }
         public DateTime Update {  get; set; }
 
