@@ -1,0 +1,111 @@
+﻿@model TransactionsModel
+@{
+    ViewData["Title"] = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Save</h1>
+
+
+<br />
+<div class="card">
+    <div class="card-header">
+        Save
+    </div>
+    <div class="card-body">
+
+        <form class="row g-3" asp-action="Save" asp-controller="Transaactions" method="post">
+
+ 
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Name Product</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="name" asp-for="items.Name">
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">ID Customer</label>
+                <input type="number" class="form-control" id="inputLocation" placeholder="1234" asp-for="Users.Id">
+            </div>
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="inputLocation" placeholder="1234" asp-for="items.Quatity">
+            </div>
+            <div class="col-md-6">
+
+                <label for="CreationDate" class="form-label">Description</label>
+                <textarea class="form-control" rows="3" placeholder="Description" asp-for="items.Description"></textarea>
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Estimad Value</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="1234" asp-for="items.EstimatedValue">
+            </div>
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label"> Amount</label>
+                <input type="text" class="form-control" id="inputLocation" placeholder="1234" asp-for="Amount">
+            </div>
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">repurchase Date</label>
+                <input type="datetime" class="form-control" id="inputLocation" placeholder="2024-01-01" asp-for="Repurchase">
+            </div>
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Transaction Date</label>
+                <input type="datetime" class="form-control" id="inputLocation" placeholder="2024-01-01" asp-for="transactionDate">
+            </div>
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Paws Date</label>
+                <input type="datetime" class="form-control" id="inputLocation" placeholder="2024-01-01" asp-for="Pawns.Creation">
+            </div>
+            <div class="col-md-4">
+                <label for="inputname" class="form-label">Transaction Type</label>
+                @if (Model.TransactionTypes != null)
+                {
+                    <select class="form-select" asp-for="SelectedTransactionTypeId" asp-items="@(new SelectList(Model.TransactionTypes, "Id", "Type"))">
+                        <option value="">Choose Option...</option>
+                    </select>
+                }
+                else
+                {
+                    <p>No transaction types available.</p>
+                }
+                <span asp-validation-for="SelectedTransactionTypeId" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-md-4">
+                <label for="inputname" class="form-label">shelf </label>
+                <select asp-for="SelectedShelvesId" id="inputState" class="form-select" asp-items="@(new SelectList(Model.ShelvesList, "Id","Name"))">
+                    <option value="">Choose Option...</option>
+                </select>
+
+            </div>
+            <div class="col-12">
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" asp-action="List" asp-controller="Transaactions">Back</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var currentDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+
+    document.getElementById('CreationDate').value = currentDate;
+
+
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
