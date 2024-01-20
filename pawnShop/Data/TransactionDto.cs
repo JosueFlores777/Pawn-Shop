@@ -20,7 +20,7 @@ namespace pawnShop.Data
 
                 if (!string.IsNullOrEmpty(search))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT\r\n  u.id AS user_id,\r\n  u.name AS user_name,\r\n  i.name AS item_name,\r\n  s.name as name,\r\n  t.id AS transaction_id,\r\n  tt.transaction_type AS transaction_type_name,\r\n  t.repurchase_date as recupe,\r\n  p.pawn_date as pawn_date,\r\n  ti.Quantity AS item_quantity\r\nFROM\r\n  transactions t\r\nJOIN\r\n  users u ON t.user_id = u.id\r\nJOIN\r\n  transaction_types tt ON t.transaction_type_id = tt.id\r\nJOIN\r\n  shelves s ON t.shelf_id = s.id\r\nJOIN\r\n  items ti ON s.id = ti.shelf_id\r\nJOIN\r\n  pawns p ON ti.id = p.item_id AND p.shelf_id = s.id\r\nJOIN\r\n  items i ON p.item_id = i.id\r\nWHERE i.name LIKE '%' + @search + '%' OR u.name LIKE '%' + @search + '%'", conexion);
+                    SqlCommand cmd = new SqlCommand("SELECT\r\n    pawns.id AS pawnid,\r\n    users.name AS username,\r\n    items.name AS itemname,\r\n    pawns.recovery as recovery,\r\n\titems.Quantity as Quantity,\r\n\tpawns.creation_date as creation,\r\n    shelves.name AS shelfname\r\nFROM\r\n    pawns\r\nJOIN\r\n    users ON pawns.user_id = users.id\r\nJOIN\r\n    items ON pawns.item_id = items.id\r\nJOIN\r\n    shelves ON pawns.shelf_id = shelves.id\r\nwhere items.name  like '%' +@search+'%' or users.name like '%' +@search+'%'", conexion);
 
                     cmd.Parameters.AddWithValue("@search", search);
 
@@ -31,27 +31,29 @@ namespace pawnShop.Data
                         {
                             olist.Add(new TransactionsModel
                             {
-                                Id = Convert.ToInt32(dr["transaction_id"]),
-                                Repurchase = Convert.ToDateTime(dr["recupe"]),
+             
+
                                 Shelves = new ShelvesModel
                                 {
 
-                                    Name = dr["name"].ToString(),
+                                    Name = dr["shelfname"].ToString(),
                                 },
 
                                 Users = new ClientModel
                                 {
-                                    Id= Convert.ToInt32(dr["user_id"]),
-                                    Name = dr["user_name"].ToString(),
+
+                                    Name = dr["username"].ToString(),
                                 },
                                 items = new ItemsModel
                                 {
-                                    Name = dr["item_name"].ToString(),
-                                    Quatity = Convert.ToInt32(dr["item_quantity"])
+                                    Name = dr["itemname"].ToString(),
+                                    Quatity = Convert.ToInt32(dr["Quantity"])
                                 },
-                                TransactionType = new TransactionTypeModel
-                                {
-                                    Type = dr["transaction_type_name"].ToString()
+
+                                Pawns = new PawnsModel {
+                                    Id = Convert.ToInt32(dr["pawnid"]),
+                                    Creation= Convert.ToDateTime(dr["creation"]),
+                                    pawn_date = Convert.ToDateTime(dr["recovery"]),
                                 }
 
                             });
@@ -61,7 +63,7 @@ namespace pawnShop.Data
                 }
                 else
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT\r\n  u.id AS user_id,\r\n  u.name AS user_name,\r\n  i.name AS item_name,\r\n  s.name as name,\r\n  t.id AS transaction_id,\r\n  tt.transaction_type AS transaction_type_name,\r\n  t.repurchase_date as recupe,\r\n  p.pawn_date as pawn_date,\r\n  ti.Quantity AS item_quantity\r\nFROM\r\n  transactions t\r\nJOIN\r\n  users u ON t.user_id = u.id\r\nJOIN\r\n  transaction_types tt ON t.transaction_type_id = tt.id\r\nJOIN\r\n  shelves s ON t.shelf_id = s.id\r\nJOIN\r\n  items ti ON s.id = ti.shelf_id\r\nJOIN\r\n  pawns p ON ti.id = p.item_id AND p.shelf_id = s.id\r\nJOIN\r\n  items i ON p.item_id = i.id", conexion);
+                    SqlCommand cmd = new SqlCommand("SELECT\r\n    pawns.id AS pawnid,\r\n    users.name AS username,\r\n    items.name AS itemname,\r\n    pawns.recovery as recovery,\r\n\titems.Quantity as Quantity,\r\n\tpawns.creation_date as creation,\r\n    shelves.name AS shelfname\r\nFROM\r\n    pawns\r\nJOIN\r\n    users ON pawns.user_id = users.id\r\nJOIN\r\n    items ON pawns.item_id = items.id\r\nJOIN\r\n    shelves ON pawns.shelf_id = shelves.id", conexion);
 
 
                     using (var dr = cmd.ExecuteReader())
@@ -70,27 +72,28 @@ namespace pawnShop.Data
                         {
                             olist.Add(new TransactionsModel
                             {
-                                Id = Convert.ToInt32(dr["transaction_id"]),
-                                Repurchase = Convert.ToDateTime(dr["recupe"]),
+                               
                                 Shelves = new ShelvesModel
                                 {
 
-                                    Name = dr["name"].ToString(),
+                                    Name = dr["shelfname"].ToString(),
                                 },
 
                                 Users = new ClientModel
                                 {
-                                    Id = Convert.ToInt32(dr["user_id"]),
-                                    Name = dr["user_name"].ToString(),
+         
+                                    Name = dr["username"].ToString(),
                                 },
                                 items = new ItemsModel
                                 {
-                                    Name = dr["item_name"].ToString(),
-                                    Quatity = Convert.ToInt32(dr["item_quantity"])
+                                    Name = dr["itemname"].ToString(),
+                                    Quatity = Convert.ToInt32(dr["Quantity"])
                                 },
-                                TransactionType = new TransactionTypeModel
-                                {
-                                    Type = dr["transaction_type_name"].ToString()
+
+                                Pawns = new PawnsModel { 
+                                    Id = Convert.ToInt32(dr["pawnid"]),
+                                    Creation= Convert.ToDateTime(dr["creation"]),
+                                    pawn_date = Convert.ToDateTime(dr["recovery"]),
                                 }
 
                             });
@@ -124,10 +127,9 @@ namespace pawnShop.Data
                         cmd.Parameters.AddWithValue("@itemDescription", transactionsModel.items.Description);
                         cmd.Parameters.AddWithValue("@estimatedValue",transactionsModel.items.EstimatedValue);
                         cmd.Parameters.AddWithValue("@shelfId",transactionsModel.SelectedShelvesId );
-                        cmd.Parameters.AddWithValue("@pawnDate", transactionsModel.Pawns.Creation);
+                        cmd.Parameters.AddWithValue("@recovery", transactionsModel.Pawns.pawn_date);
                         cmd.Parameters.AddWithValue("@pawnUserId",transactionsModel.Users.Id);
-                        cmd.Parameters.AddWithValue("@repurchaseDate", transactionsModel.Repurchase);
-
+                       
                         cmd.Parameters.AddWithValue("@transactionUserId",transactionsModel.Users.Id );
                         cmd.Parameters.AddWithValue("@transactionTypeId",transactionsModel.SelectedTransactionTypeId );
                         cmd.Parameters.AddWithValue("@transactionAmount",transactionsModel.Amount );

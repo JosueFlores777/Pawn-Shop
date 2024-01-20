@@ -2,6 +2,14 @@
 {
     public class TransactionsModel
     {
+        public TransactionsModel()
+        {
+            
+            TransactionTypes = new List<TransactionTypeModel>();
+            ShelvesList = new List<ShelvesModel>();
+        }
+
+
         public int Id { get; set; }
         public ClientModel Users { get; set; }
         public TransactionTypeModel TransactionType { get; set; }
@@ -16,7 +24,6 @@
         
         public PawnsModel Pawns { get; set; }
         public DateTime transactionDate { get; set; }
-        public DateTime Repurchase { get; set; }
         public DateTime Creation {  get; set; }
         public DateTime Update {  get; set; }
 

@@ -33,8 +33,7 @@
                     <th scope="col">Quantity Product</th>
                     <th scope="col">Name Shelf</th>
                     <th scope="col">Date Recupurchase</th>
-   
-                    <th scope="col">Type</th>
+                    <th scope="col">Date Creation</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -43,14 +42,13 @@
                 @foreach (var items in Model)
                 {
                     <tr>
-                        <td>@items.Id</td>
+                        <td>@items.Pawns.Id</td>
                         <td>@items.Users.Name</td>
                         <td>@items.items.Name</td>
                         <td>@items.items.Quatity</td>
                         <td>@items.Shelves.Name</td>
-                        <td>@items.Repurchase</td>
-                       
-                        <td>@items.TransactionType.Type</td>
+                        <td>@items.Pawns.pawn_date</td>
+                        <td>@items.Pawns.Creation</td>
                         <td> <a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Transaactions" asp-route-id="@items.Id">Edit</a></td>
                         <td> <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Transaactions" asp-route-id="@items.Id">Delete</a></td>
                     </tr>

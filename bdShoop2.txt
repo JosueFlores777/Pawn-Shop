@@ -1,5 +1,3 @@
-CREATE DATABASE pawnShop;
-GO
 
 USE pawnShop;
 GO
@@ -78,7 +76,7 @@ CREATE TABLE pawns (
   id INT IDENTITY(1,1) PRIMARY KEY,
   user_id INT,
   item_id INT,
-  pawn_date DATE,
+  recovery DATE,
   shelf_id INT,
   creation_date DATETIME,
   modification_date DATETIME,
@@ -104,7 +102,6 @@ CREATE TABLE transactions (
   transaction_type_id INT,
   amount DECIMAL(10,2),
   transaction_date DATE,
-  repurchase_date DATE,
   shelf_id INT,
   creation_date DATETIME,
   modification_date DATETIME,
@@ -118,7 +115,7 @@ go
 
 INSERT INTO employees (name, phone, lastName, userID, email, password, role, hiring_date, creation_date, modification_date)
 VALUES 
-  ('Josue', '123456789', 'Doe', 'john_doe', 'admin@gmail.com', 'password123', 'Administrator', '2023-01-15', GETDATE(), GETDATE()),
+  ('Josue', '123456789', 'Flores', 'john_doe', 'admin@gmail.com', 'asdf', 'Administrator', '2023-01-15', GETDATE(), GETDATE()),
   ('Jane Smith', '987654321', 'Smith', 'jane_smith', 'jane@example.com', 'pass456', 'Employee', '2023-02-20', GETDATE(), GETDATE());
 
 
@@ -226,23 +223,18 @@ END;
 GO
 
 
-
-
-
-
 CREATE PROCEDURE InsertData
     @itemName VARCHAR(255),
-    @itemDescription TEXT,
+    @itemDescription VARCHAR(255),
     @estimatedValue DECIMAL(10,2),
     @shelfId INT,
     @pawnUserId INT,
-    @pawnDate DATE,
+    @recovery DATE,
     @transactionUserId INT,
     @transactionTypeId INT,
     @transactionAmount DECIMAL(10,2),
     @transactionDate DATE,
-    @quantity INT,
-    @repurchaseDate DATE
+    @quantity INT  -- Corregido: Eliminado el "as" innecesario
 AS
 BEGIN
     DECLARE @transactionId INT;
@@ -251,21 +243,21 @@ BEGIN
     BEGIN TRANSACTION;
 
     -- Insert into transactions with user_id
-    INSERT INTO transactions (user_id, transaction_type_id, repurchase_date, amount, transaction_date, shelf_id, creation_date, modification_date)
-    VALUES (@transactionUserId, @transactionTypeId, @repurchaseDate, @transactionAmount, @transactionDate, @shelfId, GETDATE(), GETDATE());
+    INSERT INTO transactions (user_id, transaction_type_id,  amount, transaction_date, shelf_id, creation_date)
+    VALUES (@transactionUserId, @transactionTypeId, @transactionAmount, @transactionDate, @shelfId, GETDATE());
 
     SET @transactionId = SCOPE_IDENTITY();
 
     -- Insert into items
     DECLARE @itemId INT;
-    INSERT INTO items (name, description,Quantity, estimated_value, shelf_id, creation_date, modification_date)
-    VALUES (@itemName, @itemDescription, @quantity,@estimatedValue, @shelfId, GETDATE(), GETDATE());
+    INSERT INTO items (name, description, Quantity, estimated_value, shelf_id, creation_date)
+    VALUES (@itemName, @itemDescription, @quantity, @estimatedValue, @shelfId, GETDATE());
 
     SET @itemId = SCOPE_IDENTITY();
 
     -- Insert into pawns with user_id and quantity
-    INSERT INTO pawns (user_id, item_id, pawn_date, shelf_id, creation_date, modification_date)
-    VALUES (@pawnUserId, @itemId, @pawnDate, @shelfId, GETDATE(), GETDATE());
+    INSERT INTO pawns (user_id, item_id, recovery, shelf_id, creation_date)
+    VALUES (@pawnUserId, @itemId, @recovery, @shelfId, GETDATE());
 
     -- Update shelf capacity only once
     SELECT @currentCapacity = capacity FROM shelves WHERE id = @shelfId;

@@ -8,7 +8,7 @@ namespace pawnShop.Controllers
     [ValidarSesion]
     public class TransaactionsController : Controller
     {
-        TransactionDto transac =new TransactionDto();
+        TransactionDto transac = new TransactionDto();
         public IActionResult List(string search)
         {
             var response = transac.List(search);
@@ -16,10 +16,11 @@ namespace pawnShop.Controllers
         }
 
 
-        public IActionResult Save() {
+        public IActionResult Save()
+        {
 
-                var transactionsModel = new TransactionsModel();
-                transactionsModel.TransactionTypes = transac.ListType();
+            var transactionsModel = new TransactionsModel();
+            transactionsModel.TransactionTypes = transac.ListType();
             transactionsModel.ShelvesList = transac.ListShel();
             return View(transactionsModel);
         }
@@ -29,7 +30,7 @@ namespace pawnShop.Controllers
         {
             var reponse = transac.Save(transactionsModel);
 
-            if(reponse)
+            if (reponse)
                 return RedirectToAction("List");
             else
                 return View();
