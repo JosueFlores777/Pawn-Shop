@@ -55,16 +55,16 @@
                 <div class="col-md-6">
 
                     <label for="inputLocation" class="form-label">repurchase Date</label>
-                    <input type="datetime" class="form-control" id="CreationDate" placeholder="2024-01-01" asp-for="Pawns.pawn_date">
+                <input type="datetime" class="form-control" readonly id="CreationDate" placeholder="2024-01-01" asp-for="Pawns.pawn_date">
                 </div>
 
                 <div class="col-md-6">
 
                     <label for="inputLocation" class="form-label">Transaction Date</label>
-                    <input type="datetime" class="form-control" id="CreationDate1" placeholder="2024-01-01" asp-for="transactionDate">
+                <input type="datetime" readonly class="form-control" id="CreationDate1" placeholder="2024-01-01" asp-for="transactionDate">
                 </div>
 
-            <div class="col-md-4">
+                <div class="col-md-4">
                 <label for="inputname" class="form-label">Transaction Type</label>
              
                     <select class="form-select" asp-for="SelectedTransactionTypeId" asp-items="@(new SelectList(Model.TransactionTypes, "Id", "Type"))">
@@ -75,15 +75,13 @@
                 <span asp-validation-for="SelectedTransactionTypeId" class="text-danger"></span>
             </div>
 
-
-            <div class="col-md-4">
+                <div class="col-md-4">
                 <label for="inputname" class="form-label">shelf </label>
                 <select asp-for="SelectedShelvesId" id="inputState" class="form-select" asp-items="@(new SelectList(Model.ShelvesList, "Id","Name"))">
                     <option value="">Choose Option...</option>
                 </select>
 
             </div>
-
 
                 <div class="col-12">
 

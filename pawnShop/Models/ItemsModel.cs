@@ -7,7 +7,7 @@
         public string Name { get; set; }
         public int Quatity { get; set; }
         public string Description { get; set; }
-        public string EstimatedValue { get; set; }
+        public double EstimatedValue { get; set; }
 
         public ShelvesModel Shelves { get; set; }
     }

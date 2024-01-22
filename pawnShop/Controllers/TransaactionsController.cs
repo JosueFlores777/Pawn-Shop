@@ -35,5 +35,45 @@ namespace pawnShop.Controllers
             else
                 return View();
         }
+
+
+        public IActionResult Edit(int id)
+        {
+
+            var transaction = transac.Get(id);
+            transaction.ShelvesList = transac.ListShel();
+            return View(transaction);
+        }
+        [HttpPost]
+        public IActionResult Edit(TransactionsModel transactionsModel)
+        {
+            var transaction = transac.Edit(transactionsModel);
+            
+            if(transaction)
+                return RedirectToAction("List");
+            else 
+                return View();
+
+        }
+
+        public IActionResult Delete(int id)
+        {
+
+            var transaction = transac.Get(id);
+            transaction.ShelvesList = transac.ListShel();
+            return View(transaction);
+        }
+        [HttpPost]
+        public IActionResult Delete(TransactionsModel transactionsModel)
+        {
+            var transaction = transac.Delete(transactionsModel);
+
+            if (transaction)
+                return RedirectToAction("List");
+            else
+                return View();
+
+        }
+
     }
 }

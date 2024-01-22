@@ -1,0 +1,121 @@
+﻿@model TransactionsModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+
+<br />
+<div class="card">
+    <div class="card-header">
+        Edit
+    </div>
+    <div class="card-body">
+
+        <form class="row g-3" asp-action="Delete" asp-controller="Transaactions" method="post">
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">ID Product</label>
+                <input type="text" readonly class="form-control"  id="inputLocation" placeholder="name" asp-for="items.Id">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Name Customer</label>
+                <input type="text" class="form-control" id="inputLocation " readonly placeholder="name" asp-for="Users.Name">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="inputProduc" class="form-label">Name Product</label>
+                <input type="text" class="form-control" id="inputProduc" readonly placeholder="name" asp-for="items.Name">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="inputLocation" readonly placeholder="1234" asp-for="items.Quatity">
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="CreationDate" class="form-label">Description</label>
+                <textarea class="form-control" rows="3" placeholder="Description" readonly asp-for="items.Description"></textarea>
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">Estimad Value</label>
+                <input type="text" class="form-control" readonly id="inputLocation" placeholder="1234" asp-for="items.EstimatedValue">
+            </div>
+
+
+
+            <div class="col-md-6">
+
+                <label for="inputLocation" class="form-label">repurchase Date</label>
+                <input type="datetime" class="form-control" id="CreationDate" readonly placeholder="2024-01-01"  asp-for="Pawns.pawn_date">
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label for="inputLocation" class="form-label">Shelves name</label>
+                <input type="text" class="form-control" readonly id="inputLocation" placeholder="1234" asp-for="@Model.Shelves.Name">
+     
+            </div>
+
+
+            <div class="col-12">
+
+                <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+                <button class="btn btn-primary"  asp-action="List" asp-controller="Transaactions">Back</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SweetAlert script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("deleteButton").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var name = document.getElementById("inputProduc");
+
+            if (!name) {
+                Swal.fire({
+                    title: "Error",
+                    text: "Could not find the element with ID 'inputProduc'.",
+                    icon: "error"
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: "Are you sure to delete " + name.value + "?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                        timer: 10000
+                    }).then(() => {
+                        document.querySelector("form").submit();
+                    });
+                }
+            });
+        });
+    });
+</script>

@@ -269,3 +269,97 @@ BEGIN
 
     SELECT @transactionId AS TransactionId;
 END;
+
+create PROCEDURE UpdateItem
+    @itemId INT,
+    @itemName VARCHAR(255),
+    @itemDescription VARCHAR(255),
+    @estimatedValue DECIMAL(10,2),
+    @shelfId INT,
+    @quantity INT
+AS
+BEGIN
+    DECLARE @currentCapacity INT;
+
+    BEGIN TRANSACTION;
+
+    -- Actualizar información del artículo
+    UPDATE items
+    SET
+        name = @itemName,
+        description = @itemDescription,
+        Quantity = @quantity,
+        estimated_value = @estimatedValue,
+		modification_date = GETDATE()
+    WHERE
+        id = @itemId;
+
+    -- Obtener y actualizar capacidad de estante
+    SELECT @currentCapacity = capacity FROM shelves WHERE id = @shelfId;
+    UPDATE shelves
+    SET capacity = @currentCapacity + @quantity
+    WHERE id = @shelfId;
+
+    COMMIT;
+END;
+go
+CREATE PROCEDURE DeleteData
+    @itemId INT 
+AS
+BEGIN
+    DECLARE @shelfId INT;
+    DECLARE @quantity INT;
+
+    BEGIN TRANSACTION;
+
+    -- Obtener información necesaria antes de la eliminación
+    SELECT @shelfId = shelf_id, @quantity = Quantity
+    FROM items
+    WHERE id = @itemId;
+
+    -- Eliminar el registro de pawns
+    DELETE FROM pawns
+    WHERE item_id = @itemId;
+
+    -- Eliminar el registro de items
+    DELETE FROM items
+    WHERE id = @itemId;
+
+    -- Actualizar la capacidad del estante
+    UPDATE shelves
+    SET capacity = capacity + @quantity
+    WHERE id = @shelfId;
+
+    COMMIT;
+END;
+go
+CREATE PROCEDURE DeleteData
+    @itemId INT 
+AS
+BEGIN
+    DECLARE @shelfId INT;
+    DECLARE @quantity INT;
+
+    BEGIN TRANSACTION;
+
+    -- Obtener información necesaria antes de la eliminación
+    SELECT @shelfId = shelf_id, @quantity = Quantity
+    FROM items
+    WHERE id = @itemId;
+
+    -- Eliminar el registro de pawns
+    DELETE FROM pawns
+    WHERE item_id = @itemId;
+
+    -- Eliminar el registro de items
+    DELETE FROM items
+    WHERE id = @itemId;
+
+    -- Actualizar la capacidad del estante
+    UPDATE shelves
+    SET capacity = capacity + @quantity
+    WHERE id = @shelfId;
+
+    COMMIT;
+END;
+
