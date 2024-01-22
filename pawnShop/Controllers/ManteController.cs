@@ -10,12 +10,16 @@ namespace pawnShop.Controllers
     public class ManteController : Controller
     {
         UsersDto usersDto = new UsersDto();
-        public IActionResult Listar(string search)
+        public IActionResult Listar(string search, int page = 1, int pageSize = 10)
         {
             var oList = usersDto.List(search);
-
-            return View(oList);
+            var paginatedList = new Paginated<ClientModel>(oList, oList.Count, page, pageSize);
+            return View(paginatedList);
         }
+
+
+
+
 
         public IActionResult Save()
         {

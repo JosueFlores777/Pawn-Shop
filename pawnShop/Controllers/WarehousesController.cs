@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using iTextSharp.text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using pawnShop.Data;
 using pawnShop.Models;
+using System.Drawing.Printing;
 
 namespace pawnShop.Controllers
 {
@@ -9,10 +12,12 @@ namespace pawnShop.Controllers
         WarehousesDto wearehouses = new WarehousesDto();
 
         #region Ware
-        public IActionResult List(string search)
+        public IActionResult List(string search, int page = 1, int pageSize = 10)
         {
             var reponse = wearehouses.List(search);
-            return View(reponse);
+            var paginatedList = new Paginated<WarehousesModel>(reponse, reponse.Count, page, pageSize);
+
+            return View(paginatedList);
         }
 
         public IActionResult Save()
@@ -82,10 +87,13 @@ namespace pawnShop.Controllers
 
         #region Sha
 
-        public IActionResult ListShabvle(string search)
+        public IActionResult ListShabvle(string search, int page = 1, int pageSize = 10)
         {
-            var reponse = wearehouses.ListShabvle(search);
-            return View(reponse);
+            var reponse1 = wearehouses.ListShabvle(search);
+            var paginatedList = new Paginated<ShelvesModel>(reponse1, reponse1.Count, page, pageSize);
+
+            return View(paginatedList);
+           
         }
 
         public IActionResult EditShabvle(int id)

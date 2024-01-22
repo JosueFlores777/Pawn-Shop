@@ -63,7 +63,7 @@
         </table>
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <!-- Previous Link -->
+            
                 @if (Model.HasPreviousPage)
                 {
                     <li class="page-item">
@@ -71,7 +71,6 @@
                     </li>
                 }
 
-                <!-- Page Links -->
                 @for (int i = 1; i <= Model.PagiTotal; i++)
                 {
                     <li class="page-item @(i == Model.PagiIni ? "active" : "")">
@@ -79,7 +78,6 @@
                     </li>
                 }
 
-                <!-- Next Link -->
                 @if (Model.HasNextPage)
                 {
                     <li class="page-item">

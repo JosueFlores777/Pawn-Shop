@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using iTextSharp.text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using pawnShop.Data;
 using pawnShop.Models;
 using pawnShop.Validated;
@@ -9,10 +11,12 @@ namespace pawnShop.Controllers
     public class TransaactionsController : Controller
     {
         TransactionDto transac = new TransactionDto();
-        public IActionResult List(string search)
+        public IActionResult List(string search, int page = 1, int pageSize = 10)
         {
             var response = transac.List(search);
-            return View(response);
+            var paginatedList = new Paginated<TransactionsModel>(response, response.Count, page, pageSize);
+            return View(paginatedList);
+       
         }
 
 

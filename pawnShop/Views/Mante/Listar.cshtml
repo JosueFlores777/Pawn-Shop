@@ -1,4 +1,4 @@
-﻿@model List<ClientModel>
+﻿@model Paginated<ClientModel>
 @{
     ViewData["Title"] = "Listar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -60,6 +60,30 @@
                 }
             </tbody>
         </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
 
+                @if (Model.HasPreviousPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("List", new { page = Model.PagiIni - 1, pageSize = Model.Count, search = Context.Request.Query["search"] })">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.PagiTotal; i++)
+                {
+                    <li class="page-item @(i == Model.PagiIni ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("List", new { page = i, pageSize = Model.Count, search = Context.Request.Query["search"] })">@i</a>
+                    </li>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("List", new { page = Model.PagiIni + 1, pageSize = Model.Count, search = Context.Request.Query["search"] })">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
 </div>
