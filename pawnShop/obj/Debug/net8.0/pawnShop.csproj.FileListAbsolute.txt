@@ -546,3 +546,7 @@ E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Mic
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\Microsoft.JSInterop.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\itextsharp.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\PagedList.dll
+E:\Descargar\RAMDOS\ProyectCichar\Proyect\pawnShop\pawnShop\bin\Debug\net8.0\PagedList.Mvc.dll

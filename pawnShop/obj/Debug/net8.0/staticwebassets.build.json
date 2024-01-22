@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "T9YohsJRCTJyD92gC1bHipk3l2V86cgv53H8ZfKkM3g=",
+  "Hash": "G/DxnCnUAY+zBDW2m4paerVT5QswEO+ftf3FVrp7zmo=",
   "Source": "pawnShop",
   "BasePath": "_content/pawnShop",
   "Mode": "Default",
@@ -1250,6 +1250,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "E:\\Descargar\\RAMDOS\\ProyectCichar\\Proyect\\pawnShop\\pawnShop\\wwwroot\\pdf\\report.pdf",
+      "SourceId": "pawnShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Descargar\\RAMDOS\\ProyectCichar\\Proyect\\pawnShop\\pawnShop\\wwwroot\\",
+      "BasePath": "_content/pawnShop",
+      "RelativePath": "pdf/report.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pdf\\report.pdf"
     }
   ]
 }

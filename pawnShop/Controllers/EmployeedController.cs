@@ -11,11 +11,12 @@ namespace pawnShop.Controllers
         EmployeedDto employeeDto = new EmployeedDto();
 
 
-        public IActionResult List(string search)
+        public IActionResult List(string search, int page = 1, int pageSize = 10)
         {
-            var olist = employeeDto.List(search);
+            var employeeList = employeeDto.List(search);
+            var paginatedList = new Paginated<EmployeeModel>(employeeList, employeeList.Count, page, pageSize);
 
-            return View(olist);
+            return View(paginatedList);
         }
 
         public IActionResult Save()
